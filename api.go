@@ -4,6 +4,7 @@ import (
     "encoding/json"
     "errors"
     "fmt"
+    "github.com/spf13/viper"
     "gopkg.in/pg.v4"
     "io/ioutil"
     "net/http"
@@ -12,9 +13,6 @@ import (
     "time"
 )
 
-
-const CHAMPION_GG_KEY string = "3d8b6a5bea5f91e125fec5e2ae4ce578"
-const LOL_API_KEY string = "7fc9504a-0924-4ba0-876a-ab0130a6a07c"
 var PLATFORM_IDS = map[string]string{
     "BR": "BR1",
     "EUNE": "EUN1",
@@ -172,7 +170,7 @@ func getSummonerMasteriesAndSave(summonerName string, db *pg.DB) (err error) {
 }
 
 func getSummonerIdByNameAndSave(region string, name string, db *pg.DB) (summoners map[string]Summoner, err error) {
-    args := "api_key=" + LOL_API_KEY
+    args := "api_key=" + viper.GetString("riot.key")
     // names := strURLParameter(name).String()
     summoners = make(map[string]Summoner)
     url := fmt.Sprintf(
@@ -209,7 +207,7 @@ func getSummonerIdByNameAndSave(region string, name string, db *pg.DB) (summoner
 // }
 
 func getChampionMasteriesBySummonerIdAndSave(region string, summonerId int64, db *pg.DB) (masteries []Mastery, err error) {
-    args := "api_key=" + LOL_API_KEY
+    args := "api_key=" + viper.GetString("riot.key")
     platformId := PLATFORM_IDS[region]
     // var masteries []Mastery
     url := fmt.Sprintf(
@@ -264,7 +262,7 @@ func getWinrateForChampion(champion string, db *pg.DB) (matchups []ChampionMatch
     url := fmt.Sprintf(
         "http://api.champion.gg/champion/%v/matchup?api_key=%v",
         champion,
-        CHAMPION_GG_KEY)
+        viper.GetString("championgg.key"))
     fmt.Println(url)
     err = requestAndUnmarshal(url, &matchupInfo)
     if err != nil {

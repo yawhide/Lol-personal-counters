@@ -4,6 +4,7 @@ import (
     "errors"
     "fmt"
     "html/template"
+    "github.com/spf13/viper"
     "gopkg.in/pg.v4"
     "log"
     "net/http"
@@ -19,11 +20,23 @@ type MatchupResult struct {
 
 func main() {
 
+    viper.SetConfigName("config")
+    viper.AddConfigPath(".")
+    viper.SetConfigType("json")
+    err := viper.ReadInConfig()
+    if err != nil { // Handle errors reading the config file
+        panic(fmt.Errorf("Fatal error config file: %s \n", err))
+    }
+    username := viper.GetString("postgres.username")
+    password := viper.GetString("postgres.password")
+    fmt.Println(username, password)
+
     db = pg.Connect(&pg.Options{
-        User: "yawhide",
+        User: username,
+        Password: password,
     })
 
-    err := createSchema(db)
+    err = createSchema(db)
     if err != nil {
         panic(err)
     }
