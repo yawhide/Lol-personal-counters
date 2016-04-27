@@ -29,7 +29,6 @@ func main() {
     }
     username := viper.GetString("postgres.username")
     password := viper.GetString("postgres.password")
-    fmt.Println(username, password)
 
     db = pg.Connect(&pg.Options{
         User: username,
@@ -72,6 +71,7 @@ func main() {
     http.HandleFunc("/", Index)
     fs := http.FileServer(http.Dir("static"))
     http.Handle("/static/", http.StripPrefix("/static/", fs))
+    fmt.Println("Server started")
     err = http.ListenAndServe(":8080", nil)
     if err != nil {
         log.Fatal("ListenAndServe: ", err)
