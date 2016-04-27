@@ -193,6 +193,8 @@ func getSummonerIdByNameAndSave(region string, name string, db *pg.DB) (summoner
     }
     s := summoners[name]
     s.SetSummoner(name)
+    s.MasteriesUpdatedAt = time.Now().UTC()
+    fmt.Println(s)
     err = db.Create(&s)
     if err != nil {
         fmt.Println(err)
@@ -314,13 +316,13 @@ func getOrCreateSummoner(summonerName string, db *pg.DB) (summoner Summoner, err
         }
     }
     // update old masteries
-    if summoner.MasteriesUpdatedAt.UTC().Before(time.Now().UTC().Add(time.Duration(60*60*24)*time.Second)) {
-        _, err = getChampionMasteriesBySummonerIdAndSave("NA", summoner.SummonerId, db)
-        if err != nil {
-            fmt.Println(err)
-            return
-        }
-    }
+    // if summoner.MasteriesUpdatedAt.UTC().Before(time.Now().UTC().Add(time.Duration(60*60*24)*time.Second)) {
+    //     _, err = getChampionMasteriesBySummonerIdAndSave("NA", summoner.SummonerId, db)
+    //     if err != nil {
+    //         fmt.Println(err)
+    //         return
+    //     }
+    // }
 
     fmt.Println("getSummonerById", name, summoner)
     return
