@@ -340,7 +340,7 @@ func getOrCreateSummoner(summonerName string, db *pg.DB) (summoner Summoner, err
         }
     }
     if summoner.MasteriesUpdatedAt.UTC().Add(time.Duration(60*60*24)*time.Second).Before(time.Now().UTC()) {
-        fmt.Println("Summoner %s masteries are out of date...lets update them!", summoner.Name)
+        fmt.Printf("Summoner %s masteries are out of date...lets update them!\n", summoner.Name)
         _, err = getChampionMasteriesBySummonerIdAndSave("NA", summoner.SummonerId, db)
         if err != nil {
             fmt.Println(err)
