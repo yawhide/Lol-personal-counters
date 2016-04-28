@@ -50,12 +50,12 @@ func (err RiotError) Error() string {
 }
 
 type Summoner struct {
-    SummonerId    int64  `json:"id"`
-    Name          string `json:"name"`
-    ProfileIconID int    `json:"profileIconId"`
+    SummonerId         int64  `json:"id", sql:",pk"`
+    Name               string `json:"name"`
+    ProfileIconID      int    `json:"profileIconId"`
     MasteriesUpdatedAt time.Time
-    RevisionDate  int64  `json:"revisionDate"`
-    SummonerLevel int    `json:"summonerLevel"`
+    RevisionDate       int64  `json:"revisionDate"`
+    SummonerLevel      int    `json:"summonerLevel"`
 }
 
 func (s *Summoner) SetSummoner(name string) {
@@ -188,7 +188,7 @@ func getSummonerIdByNameAndSave(region string, name string, db *pg.DB) (summoner
     }
     fmt.Println(summoners[name])
     if summoners[name].SummonerId == 0 {
-        fmt.Println(err)
+        fmt.Println("Summoner not found in returning json from riot, summoner name:", name, err)
         return
     }
     s := summoners[name]
@@ -197,7 +197,7 @@ func getSummonerIdByNameAndSave(region string, name string, db *pg.DB) (summoner
     fmt.Println(s)
     err = db.Create(&s)
     if err != nil {
-        fmt.Println(err)
+        fmt.Println("Failed to get summoner", name, "by name and save it", err)
         return
     }
     fmt.Println(summoners[name].SummonerId)
@@ -225,17 +225,6 @@ func getChampionMasteriesBySummonerIdAndSave(region string, summonerId int64, db
         fmt.Println(err)
         return
     }
-    // var savedMasteries []Mastery
-    // err = db.Model(&masteries).Where("summoner_id = ?", summonerId).Select()
-
-    // if err != nil {
-    //     // if err.Error() == "pg: no rows in result set" {
-    //     //     savedMasteries = nil
-    //     // } else {
-    //         fmt.Println(err)
-    //         return
-    //     // }
-    // }
 
     for _, mastery := range masteries {
         sql := fmt.Sprintf(
@@ -250,11 +239,46 @@ func getChampionMasteriesBySummonerIdAndSave(region string, summonerId int64, db
         _, err = db.Exec(sql)
         // err = db.Create(&mastery)
         if err != nil {
-            fmt.Println(sql)
-            fmt.Println(err)
+            // fmt.Println(sql)
+            fmt.Println("Failed to upsert masteries for summoner", summonerId, err)
             return
         }
     }
+    var s Summoner
+    err = db.Model(&s).Where("summoner_id = ?", summonerId).Select()
+    s.MasteriesUpdatedAt = time.Now().UTC()
+    // fmt.Println(s)
+    db.Model(&s).Set("masteries_updated_at = ?masteries_updated_at").Where("summoner_id = ?summoner_id").Update()
+
+    // err = db.Update(&s)
+    if err != nil {
+        fmt.Println("failed first one", err)
+    }
+
+    // _, err = db.Model(&s).Set("masteries_updated_at = ?", time.Now().UTC()).Returning("*").Update()
+    // fmt.Println("wtf", db.Model(&s))
+
+    var s3 Summoner
+    err = db.Model(&s3).Where("summoner_id = ?", summonerId).Select()
+    fmt.Println(s3)
+
+    // sql = fmt.Sprintf(
+    //     "UPDATE summoners SET masteries_updated_at = '%v' WHERE summoner_id = '%v'",
+    //     summonerId,
+    //     time.Now().UTC())
+    // fmt.Println(sql)
+    // _, err = db.Exec(sql)
+    // err = db.Update(&Summoner{
+    //     SummonerId: summonerId,
+    //     MasteriesUpdatedAt: time.Now().UTC(),
+    // })
+    // var s Summoner
+    // _, err := db.Model(&s).Set("masteries_updated_at = ?", time.Now().UTC()).Where("summoner_id = ?", summonerId).Returning("*").Update()
+    if err != nil {
+        fmt.Println("Failed to update summoner:", summonerId, "masteries updated at time.", err)
+        return
+    }
+
     // fmt.Println(masteries)
     return
 }
@@ -283,7 +307,7 @@ func getWinrateForChampion(champion string, db *pg.DB) (matchups []ChampionMatch
                 WinRate: matchup.WinRate}
             err = db.Create(&c)
             if err != nil {
-                fmt.Println(err)
+                fmt.Println("Failed to create champion matchup", err)
                 return
             }
             matchups = append(matchups, c)
@@ -315,9 +339,8 @@ func getOrCreateSummoner(summonerName string, db *pg.DB) (summoner Summoner, err
             return
         }
     }
-    // update old masteries
-    // fmt.Println(summoner.MasteriesUpdatedAt.UTC(), "  ", summoner.MasteriesUpdatedAt.UTC().Add(time.Duration(60*60*24)*time.Second))
-    if summoner.MasteriesUpdatedAt.UTC().Before(time.Now().UTC().Add(time.Duration(60*60*24)*time.Second)) {
+    if summoner.MasteriesUpdatedAt.UTC().Add(time.Duration(60*60*24)*time.Second).Before(time.Now().UTC()) {
+        fmt.Println("Summoner %s masteries are out of date...lets update them!", summoner.Name)
         _, err = getChampionMasteriesBySummonerIdAndSave("NA", summoner.SummonerId, db)
         if err != nil {
             fmt.Println(err)
