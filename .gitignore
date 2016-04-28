@@ -25,6 +25,7 @@ _testmain.go
 
 api
 start
+gin-bin
 
 # MAC OSX
 .DS_Store
