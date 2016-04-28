@@ -84,8 +84,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
         t, _ := template.ParseFiles("index.html")
         t.Execute(w, nil)
     } else {
-        w.WriteHeader(http.StatusNotFound)
-        w.Write([]byte("Not found"))
+        http.Redirect(w, r, "/", 301)
     }
 }
 
@@ -142,7 +141,6 @@ func GetMatchup(w http.ResponseWriter, r *http.Request) {
         t, _ := template.ParseFiles("matchups.html")
         t.Execute(w, result)
     } else {
-        w.WriteHeader(http.StatusNotFound)
-        w.Write([]byte("Not found"))
+        http.Redirect(w, r, "/", 301)
     }
 }
