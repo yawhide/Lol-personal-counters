@@ -69,6 +69,7 @@ func main() {
     // getMatchups(summoner.SummonerId, "57", db)
 
     http.HandleFunc("/", Index)
+    http.HandleFunc("/matchup", GetMatchup)
     fs := http.FileServer(http.Dir("static"))
     http.Handle("/static/", http.StripPrefix("/static/", fs))
     fmt.Println("Server started")
@@ -82,6 +83,16 @@ func Index(w http.ResponseWriter, r *http.Request) {
     if r.Method == "GET" {
         t, _ := template.ParseFiles("index.html")
         t.Execute(w, nil)
+    } else {
+        w.WriteHeader(http.StatusNotFound)
+        w.Write([]byte("Not found"))
+    }
+}
+
+func GetMatchup(w http.ResponseWriter, r *http.Request) {
+    if r.Method == "GET" {
+        // redirect to /
+        http.Redirect(w, r, "/", 301)
     } else if r.Method == "POST" {
         r.ParseForm()
         enemy := r.Form.Get("enemy")
