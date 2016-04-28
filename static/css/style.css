@@ -2,6 +2,11 @@
   padding-left: 10px;
 }
 
+.table > tbody > tr > th,
+.table > thead > tr > th{
+  text-align: center;
+}
+
 div.awesomplete {
   display: block;
 }
