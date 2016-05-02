@@ -103,6 +103,7 @@ func (m ChampionMatchup) String() string {
     return fmt.Sprintf("[%s] %s vs %s. %g %d games\n", m.Role, CHAMPION_KEYS_BY_KEY[m.Champion], CHAMPION_KEYS_BY_KEY[m.Enemy], m.WinRate, m.Games)
 }
 
+
 func createSchema(db *pg.DB) error {
     queries := []string{
         // `DROP TABLE champion_matchups`,
@@ -147,6 +148,8 @@ func createSchema(db *pg.DB) error {
             $$ LANGUAGE 'plpgsql'`,
 
     }
+    // fmt.Println("hey", queries, createTableSql)
+    queries = append(queries, createTableSql...)
 
     for _, q := range queries {
         _, err := db.Exec(q)
@@ -158,14 +161,14 @@ func createSchema(db *pg.DB) error {
     return nil
 }
 
-func getSummonerMasteriesAndSave(summonerName string, db *pg.DB) (err error) {
+func getSummonerMasteriesAndSave(region, summonerName string, db *pg.DB) (err error) {
     name := NormalizeSummonerName(summonerName)[0]
-    summoners, err := getSummonerIdByNameAndSave("NA", name, db)
+    summoners, err := getSummonerIdByNameAndSave(region, name, db)
     if err != nil {
         fmt.Println(err)
         return
     }
-    _, err = getChampionMasteriesBySummonerIdAndSave("NA", summoners[name].SummonerId, db)
+    _, err = getChampionMasteriesBySummonerIdAndSave(region, summoners[name].SummonerId, db)
     return
 }
 
@@ -258,10 +261,6 @@ func getChampionMasteriesBySummonerIdAndSave(region string, summonerId int64, db
     // _, err = db.Model(&s).Set("masteries_updated_at = ?", time.Now().UTC()).Returning("*").Update()
     // fmt.Println("wtf", db.Model(&s))
 
-    var s3 Summoner
-    err = db.Model(&s3).Where("summoner_id = ?", summonerId).Select()
-    fmt.Println(s3)
-
     // sql = fmt.Sprintf(
     //     "UPDATE summoners SET masteries_updated_at = '%v' WHERE summoner_id = '%v'",
     //     summonerId,
@@ -319,12 +318,12 @@ func getWinrateForChampion(champion string, db *pg.DB) (matchups []ChampionMatch
 
 /* ======================== db methods ======================= */
 
-func getOrCreateSummoner(summonerName string, db *pg.DB) (summoner Summoner, err error) {
+func getOrCreateSummoner(region string, summonerName string, db *pg.DB) (summoner Summoner, err error) {
     name := NormalizeSummonerName(summonerName)[0]
     err = db.Model(&summoner).Where("name = ?", name).Select()
     if err != nil {
         if err.Error() == "pg: no rows in result set" {
-            err = getSummonerMasteriesAndSave(name, db)
+            err = getSummonerMasteriesAndSave(region, name, db)
             if err != nil {
                 fmt.Println(err)
                 return
@@ -341,11 +340,7 @@ func getOrCreateSummoner(summonerName string, db *pg.DB) (summoner Summoner, err
     }
     if summoner.MasteriesUpdatedAt.UTC().Add(time.Duration(60*60*24)*time.Second).Before(time.Now().UTC()) {
         fmt.Printf("Summoner %s masteries are out of date...lets update them!\n", summoner.Name)
-        _, err = getChampionMasteriesBySummonerIdAndSave("NA", summoner.SummonerId, db)
-        if err != nil {
-            fmt.Println(err)
-            return
-        }
+        getChampionMasteriesBySummonerIdAndSave("NA", summoner.SummonerId, db)
     }
 
     fmt.Println("getSummonerById", name, summoner)
@@ -374,11 +369,11 @@ func getMatchups(summoner_id int64, enemy_champion_id string, role string, db *p
 
 func requestAndUnmarshal(requestURL string, v interface{}) (err error) {
     resp, err := http.Get(requestURL)
-    defer resp.Body.Close()
     if err != nil {
         fmt.Println(err)
         return
     }
+    defer resp.Body.Close()
     if resp.StatusCode != http.StatusOK {
         return RiotError{StatusCode: resp.StatusCode}
     }
@@ -425,5 +420,6 @@ func NormalizeChampion(name string) string {
     name = strings.ToLower(name)
     name = strings.Replace(name, " ", "", -1)
     name = strings.Replace(name, "'", "", -1)
+    name = strings.Replace(name, ".", "", -1)
     return name
 }

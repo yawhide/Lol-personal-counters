@@ -10,3 +10,7 @@
 div.awesomplete {
   display: block;
 }
+
+input[name="region"] {
+  display: none;
+}

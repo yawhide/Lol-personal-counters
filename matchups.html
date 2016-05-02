@@ -12,7 +12,9 @@
       <a type="button" class="btn btn-default" href="/">
         <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Choose Another Matchup
       </a>
-      <p>Enemy: {{if eq .Enemy "MonkeyKing" }} Wukong {{else if eq .Enemy "MasterYi"}} Master Yi {{else}} {{.Enemy}} {{end}}</p>
+      <p>
+        Enemy: {{if eq .Enemy "MonkeyKing" }} Wukong {{else if eq .Enemy "MasterYi"}} Master Yi {{else if eq .Enemy "DrMundo"}} Dr. Mundo {{else}} {{.Enemy}} {{end}}
+      </p>
       <img src="http://ddragon.leagueoflegends.com/cdn/6.7.1/img/champion/{{.Enemy}}.png" height="40">
       <p>Role: {{.Role}}</p>
       <table class="table">
@@ -26,7 +28,16 @@
         <tbody>
           {{ range .Matchups }}
           <tr>
-            <th><img src="http://ddragon.leagueoflegends.com/cdn/6.7.1/img/champion/{{.Champion}}.png" height="40"><a href="http://champion.gg/champion/{{.Champion}}/{{.Role}}" target="_blank" class="padding-left-10">{{.Champion}}</a></th>
+            <th>
+              <img src="http://ddragon.leagueoflegends.com/cdn/6.7.1/img/champion/{{.Champion}}.png" height="40">
+                <a href="http://champion.gg/champion/{{.Champion}}/{{.Role}}" target="_blank" class="padding-left-10">
+                {{if eq .Champion "MonkeyKing" }} Wukong
+                {{else if eq .Champion "MasterYi"}} Master Yi
+                {{else if eq .Champion "DrMundo"}} Dr. Mundo
+                {{else}} {{.Champion}}
+                {{end}}
+                </a>
+              </th>
             <th>{{.WinRate}}</th>
             <th>{{.Games}}</th>
           </tr>

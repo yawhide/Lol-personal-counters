@@ -20,12 +20,31 @@
       <form action="/matchup" method="post">
         <div class="form-group">
           <label for="name">Summoner Name</label>
-          <input type="text" class="form-control" id="name" name="name" placeholder="Name" aria-describedby="basic-addon1">
+          <div class="input-group">
+            <input type="text" class="form-control" id="name" name="name" placeholder="Name" aria-describedby="basic-addon1">
+            <input type="text" id="region" name="region">
+            <div class="input-group-btn">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">NA<span class="caret"></span></button>
+              <ul class="dropdown-menu dropdown-menu-right">
+                <li><a>BR</a></li>
+                <li><a>EUNE</a></li>
+                <li><a>EUW</a></li>
+                <li><a>JP</a></li>
+                <li><a>KR</a></li>
+                <li><a>LAN</a></li>
+                <li><a>LAS</a></li>
+                <li><a>NA</a></li>
+                <li><a>OCE</a></li>
+                <li><a>RU</a></li>
+                <li><a>TR</a></li>
+              </ul>
+            </div>
+          </div>
         </div>
         <div class="form-group">
           <label for="enemy">Enemy Champion</label>
           <!-- <input type="text" class="form-control" id="enemy" name="enemy" placeholder="Enemy" aria-describedby="basic-addon1"> -->
-          <input data-list="Aatrox,Ahri,Akali,Alistar,Amumu,Anivia,Annie,Ashe,Aurelionsol,Azir,Bard,Blitzcrank,Brand,Braum,Caitlyn,Cassiopeia,Chogath,Corki,Darius,Diana,Draven,Drmundo,Ekko,Elise,Evelynn,Ezreal,Fiddlesticks,Fiora,Fizz,Galio,Gangplank,Garen,Gnar,Gragas,Graves,Hecarim,Heimerdinger,Illaoi,Irelia,Janna,Jarvaniv,Jax,Jayce,Jhin,Jinx,Kalista,Karma,Karthus,Kassadin,Katarina,Kayle,Kennen,Khazix,Kindred,Kogmaw,Leblanc,Leesin,Leona,Lissandra,Lucian,Lulu,Lux,Malphite,Malzahar,Maokai,Master yi,Missfortune,Monkeyking,Mordekaiser,Morgana,Nami,Nasus,Nautilus,Nidalee,Nocturne,Nunu,Olaf,Orianna,Pantheon,Poppy,Quinn,Rammus,Reksai,Renekton,Rengar,Riven,Rumble,Ryze,Sejuani,Shaco,Shen,Shyvana,Singed,Sion,Sivir,Skarner,Sona,Soraka,Swain,Syndra,Tahmkench,Talon,Taric,Teemo,Thresh,Tristana,Trundle,Tryndamere,Twistedfate,Twitch,Udyr,Urgot,Varus,Vayne,Veigar,Velkoz,Vi,Viktor,Vladimir,Volibear,Warwick,Wukong,Xerath,Xinzhao,Yasuo,Yorick,Zac,Zed,Ziggs,Zilean,Zyra" type="text" class="awesomplete form-control" id="enemy" name="enemy" placeholder="Enemy" aria-describedby="basic-addon1">
+          <input data-list="Aatrox,Ahri,Akali,Alistar,Amumu,Anivia,Annie,Ashe,Aurelion Sol,Azir,Bard,Blitzcrank,Brand,Braum,Caitlyn,Cassiopeia,Chogath,Corki,Darius,Diana,Draven,Dr. Mundo,Dr Mundo,Ekko,Elise,Evelynn,Ezreal,Fiddlesticks,Fiora,Fizz,Galio,Gangplank,Garen,Gnar,Gragas,Graves,Hecarim,Heimerdinger,Illaoi,Irelia,Janna,Jarvaniv,Jax,Jayce,Jhin,Jinx,Kalista,Karma,Karthus,Kassadin,Katarina,Kayle,Kennen,Khazix,Kindred,Kogmaw,Leblanc,Leesin,Leona,Lissandra,Lucian,Lulu,Lux,Malphite,Malzahar,Maokai,Master Yi,Missfortune,Monkeyking,Mordekaiser,Morgana,Nami,Nasus,Nautilus,Nidalee,Nocturne,Nunu,Olaf,Orianna,Pantheon,Poppy,Quinn,Rammus,Reksai,Renekton,Rengar,Riven,Rumble,Ryze,Sejuani,Shaco,Shen,Shyvana,Singed,Sion,Sivir,Skarner,Sona,Soraka,Swain,Syndra,Tahmkench,Talon,Taric,Teemo,Thresh,Tristana,Trundle,Tryndamere,Twistedfate,Twitch,Udyr,Urgot,Varus,Vayne,Veigar,Velkoz,Vi,Viktor,Vladimir,Volibear,Warwick,Wukong,Xerath,Xinzhao,Yasuo,Yorick,Zac,Zed,Ziggs,Zilean,Zyra" type="text" class="awesomplete form-control" id="enemy" name="enemy" placeholder="Enemy" aria-describedby="basic-addon1">
         </div>
 
         <div class="form-group">

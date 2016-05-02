@@ -95,9 +95,10 @@ func GetMatchup(w http.ResponseWriter, r *http.Request) {
     } else if r.Method == "POST" {
         r.ParseForm()
         enemy := r.Form.Get("enemy")
-        summonerName := r.Form.Get("name")
+        region := r.Form.Get("region")
         role := r.Form.Get("role")
-        if summonerName == "" || enemy == "" || role == "" {
+        summonerName := r.Form.Get("name")
+        if summonerName == "" || enemy == "" || role == ""  || region == ""{
             var err string
             if summonerName == "" {
                 err = "Summoner Name"
@@ -105,6 +106,8 @@ func GetMatchup(w http.ResponseWriter, r *http.Request) {
                 err = "Enemy Champion"
             } else if role == "" {
                 err = "Role"
+            } else if region == "" {
+                err = "Region"
             }
             t, _ := template.ParseFiles("index.html")
             t.Execute(w, errors.New(err))
@@ -119,12 +122,14 @@ func GetMatchup(w http.ResponseWriter, r *http.Request) {
         }
 
         fmt.Println("enemy:", enemy, CHAMPION_KEYS[enemy])
-        fmt.Println("summoner name:", summonerName)
+        fmt.Println("region:", region)
         fmt.Println("role:", role)
+        fmt.Println("summoner name:", summonerName)
 
-        summoner, err := getOrCreateSummoner(summonerName, db)
+        summoner, err := getOrCreateSummoner(region, summonerName, db)
         if err != nil {
             t, _ := template.ParseFiles("index.html")
+            fmt.Println("Error get or create summoner", err)
             t.Execute(w, err.Error())
             return
         }
