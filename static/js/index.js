@@ -25,7 +25,7 @@ var regionMapping = {
 if (storage.summonerName) {
   $form.name.value = storage.summonerName;
   $form.region.value = regionMapping[storage.region];
-  $regionBtn.innerText = storage.region;
+  $regionBtn.innerText = storage.region || 'NA';
   $form.role.value = storage.role || 'Top';
   $form.save.checked = true;
   $form.enemy.focus();
