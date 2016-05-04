@@ -35,12 +35,16 @@ $regionBtn.onclick = function () {
   $regionList.style.display = !$regionList.style.display || $regionList.style.display === 'none' ? 'block' : 'none';
 }
 
-$regionBtn.onblur = function () {
+$regionList.onmousedown = function (e) {
+  $form.region.value = e.target.innerText;
+  $regionBtn.innerText = e.target.innerText;
   $regionList.style.display = 'none';
 }
 
-$regionList.onclick = function (e) {
-  $form.region.value = e.target.innerText;
-  $regionBtn.innerText = e.target.innerText;
+$regionList.onblur = function () {
+  $regionList.style.display = 'none';
+}
+
+$regionBtn.onblur = function (e) {
   $regionList.style.display = 'none';
 }
