@@ -5,3 +5,4 @@ Submission for the riot april 2016 api challenge
 - https://github.com/codegangsta/gin
 - https://github.com/spf13/viper
 - http://gopkg.in/pg.v4
+- http://github.com/tools/godep

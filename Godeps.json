@@ -1,0 +1,14 @@
+{
+  "ImportPath": "github.com/yawhide/lol-counter",
+  "GoVersion": "go1.6",
+  "Deps": [
+      {
+          "ImportPath": "github.com/spf13/viper",
+          "Rev": "f904a1790545169368e8d37badd19d1895d94f29"
+      },
+      {
+          "ImportPath": "gopkg.in/pg.v4",
+          "Rev": "8f13b90be6f59ed733caea6929cc20d53ff88828"
+      }
+  ]
+}
