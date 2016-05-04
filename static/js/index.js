@@ -8,24 +8,10 @@ var $form = document.querySelector('form');
 var $regionBtn = document.querySelector('.btn.btn-default');
 var $regionList = document.querySelector('.dropdown-menu');
 
-var regionMapping = {
-  'BR': 'br1',
-  'EUNE': 'eun1',
-  'EUW': 'euw1',
-  'JP': 'jp1',
-  'KR': 'kr',
-  'LAN': 'la1',
-  'LAS': 'la2',
-  'NA': 'na1',
-  'OCE': 'oc1',
-  'RU': 'ru',
-  'TR': 'tr1',
-}
-
 if (storage.summonerName) {
   $form.name.value = storage.summonerName;
-  $form.region.value = regionMapping[storage.region];
   $regionBtn.innerText = storage.region || 'NA';
+  $form.region.value = $regionBtn.innerText;
   $form.role.value = storage.role || 'Top';
   $form.save.checked = true;
   $form.enemy.focus();
@@ -49,8 +35,12 @@ $regionBtn.onclick = function () {
   $regionList.style.display = !$regionList.style.display || $regionList.style.display === 'none' ? 'block' : 'none';
 }
 
+$regionBtn.onblur = function () {
+  $regionList.style.display = 'none';
+}
+
 $regionList.onclick = function (e) {
-  $form.region.value = regionMapping[e.target.innerText];
+  $form.region.value = e.target.innerText;
   $regionBtn.innerText = e.target.innerText;
   $regionList.style.display = 'none';
 }

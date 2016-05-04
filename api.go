@@ -14,16 +14,28 @@ import (
 )
 
 var PLATFORM_IDS = map[string]string{
-    "BR": "BR1",
-    "EUNE": "EUN1",
-    "EUW": "EUW1",
-    "KR": "KR",
-    "LAN": "LA1",
-    "LAS": "LA2",
-    "NA": "NA1",
-    "OCE": "OC1",
-    "TR": "TR1",
-    "RU": "RU",
+    "br": "BR1",
+    "eune": "EUN1",
+    "euw": "EUW1",
+    "kr": "KR",
+    "lan": "LA1",
+    "las": "LA2",
+    "na": "NA1",
+    "oce": "OC1",
+    "tr": "TR1",
+    "ru": "RU",
+}
+var RIOT_REGIONS = map[string]bool{
+    "br": true,
+    "eune": true,
+    "euw": true,
+    "kr": true,
+    "lan": true,
+    "las": true,
+    "na": true,
+    "oce": true,
+    "tr": true,
+    "ru": true,
 }
 const LOL_API_HOST_SUFFIX = "api.pvp.net"
 var CHAMPIONS = [...]string { "shaco","drmundo","rammus","anivia","irelia","yasuo","sona","kassadin","zac","gnar","karma","corki","gangplank","janna","jhin","kindred","braum","ashe","tryndamere","jax","morgana","zilean","singed","evelynn","twitch","galio","velkoz","olaf","annie","karthus","leblanc","urgot","amumu","xinzhao","chogath","twistedfate","fiddlesticks","vladimir","warwick","teemo","tristana","sivir","soraka","ryze","sion","masteryi","alistar","missfortune","nunu","rengar","volibear","fizz","graves","ahri","shyvana","lux","xerath","thresh","shen","kogmaw","jinx","tahmkench","riven","talon","malzahar","kayle","kalista","reksai","illaoi","leona","lulu","gragas","poppy","fiora","ziggs","udyr","viktor","sejuani","varus","nautilus","draven","bard","mordekaiser","ekko","yorick","pantheon","ezreal","garen","akali","kennen","vayne","jayce","lissandra","cassiopeia","rumble","khazix","darius","hecarim","skarner","lucian","heimerdinger","nasus","zed","nidalee","syndra","jarvaniv","quinn","renekton","maokai","aurelionsol","nocturne","katarina","leesin","monkeyking","azir","brand","diana","elise","nami","aatrox","orianna","zyra","trundle","veigar","taric","caitlyn","blitzcrank","malphite","vi","swain" }

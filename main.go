@@ -8,6 +8,7 @@ import (
     "gopkg.in/pg.v4"
     "log"
     "net/http"
+    "strings"
 )
 
 var db *pg.DB
@@ -95,10 +96,10 @@ func GetMatchup(w http.ResponseWriter, r *http.Request) {
     } else if r.Method == "POST" {
         r.ParseForm()
         enemy := r.Form.Get("enemy")
-        region := r.Form.Get("region")
+        region := strings.ToLower(r.Form.Get("region"))
         role := r.Form.Get("role")
         summonerName := r.Form.Get("name")
-        if summonerName == "" || enemy == "" || role == ""  || region == ""{
+        if summonerName == "" || enemy == "" || role == ""  || !RIOT_REGIONS[region] {
             var err string
             if summonerName == "" {
                 err = "Summoner Name"
@@ -106,7 +107,7 @@ func GetMatchup(w http.ResponseWriter, r *http.Request) {
                 err = "Enemy Champion"
             } else if role == "" {
                 err = "Role"
-            } else if region == "" {
+            } else if !RIOT_REGIONS[region] {
                 err = "Region"
             }
             t, _ := template.ParseFiles("index.html")
