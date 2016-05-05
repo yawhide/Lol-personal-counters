@@ -13,7 +13,22 @@
         <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Choose Another Matchup
       </a>
       <p>
-        Enemy: {{if eq .Enemy "MonkeyKing" }} Wukong {{else if eq .Enemy "MasterYi"}} Master Yi {{else if eq .Enemy "DrMundo"}} Dr. Mundo {{else}} {{.Enemy}} {{end}}
+        Enemy:
+        {{if eq .Enemy "MonkeyKing" }} Wukong
+        {{else if eq .Enemy "MasterYi"}} Master Yi
+        {{else if eq .Enemy "DrMundo"}} Dr. Mundo
+        {{else if eq .Enemy "Velkoz"}} Vel'Koz
+        {{else if eq .Enemy "Leblanc"}} LeBlanc
+        {{else if eq .Enemy "XinZhao"}} Xin Zhao
+        {{else if eq .Enemy "Chogath"}} Cho'Gath
+        {{else if eq .Enemy "TwistedFate"}} Twisted Fate
+        {{else if eq .Enemy "MissFortune"}} Miss Fortune
+        {{else if eq .Enemy "KogMaw"}} Kog'Maw
+        {{else if eq .Enemy "TahmKench"}} Tahm Kench
+        {{else if eq .Enemy "JarvanIV"}} Jarvan IV
+        {{else if eq .Enemy "AurelionSol"}} Aurelion Sol
+        {{else if eq .Enemy "LeeSin"}} Lee Sin
+        {{else}} {{.Enemy}} {{end}}
       </p>
       <img src="http://ddragon.leagueoflegends.com/cdn/6.7.1/img/champion/{{.Enemy}}.png" height="40">
       <p>Role: {{.Role}}</p>
@@ -34,6 +49,17 @@
                 {{if eq .Champion "MonkeyKing" }} Wukong
                 {{else if eq .Champion "MasterYi"}} Master Yi
                 {{else if eq .Champion "DrMundo"}} Dr. Mundo
+                {{else if eq .Champion "Velkoz"}} Vel'Koz
+                {{else if eq .Champion "Leblanc"}} LeBlanc
+                {{else if eq .Champion "XinZhao"}} Xin Zhao
+                {{else if eq .Champion "Chogath"}} Cho'Gath
+                {{else if eq .Champion "TwistedFate"}} Twisted Fate
+                {{else if eq .Champion "MissFortune"}} Miss Fortune
+                {{else if eq .Champion "KogMaw"}} Kog'Maw
+                {{else if eq .Champion "TahmKench"}} Tahm Kench
+                {{else if eq .Champion "JarvanIV"}} Jarvan IV
+                {{else if eq .Champion "AurelionSol"}} Aurelion Sol
+                {{else if eq .Champion "LeeSin"}} Lee Sin
                 {{else}} {{.Champion}}
                 {{end}}
                 </a>
@@ -45,6 +71,5 @@
         </tbody>
       </table>
     </div>
-    <script type="text/javascript" src="{{.Prefix}}static/js/index.js"></script>
   </body>
 </html>

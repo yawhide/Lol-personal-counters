@@ -16,13 +16,13 @@ var urlPrefix string
 
 type IndexResult struct {
     Prefix string
-    Error error
+    Error  error
 }
 
 type MatchupResult struct {
-    Enemy string
-    Prefix string
-    Role string
+    Enemy    string
+    Prefix   string
+    Role     string
     Matchups []ChampionMatchup
 }
 
