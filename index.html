@@ -2,19 +2,19 @@
 <html lang="en">
   <head>
     <title>LoL Personal Counters</title>
-    <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="static/css/awesomplete.css" />
-    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+    <link rel="stylesheet" type="text/css" href="{{.Prefix}}static/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{{.Prefix}}static/css/awesomplete.css" />
+    <link rel="stylesheet" type="text/css" href="{{.Prefix}}static/css/style.css">
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   </head>
   <body>
     <div class="container">
       <h1>LoL Personal Counters</h1>
-      {{if .}}
+      {{if .Error}}
       <div class="alert alert-danger" role="alert">
         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
         <span class="sr-only">Error:</span>
-        Enter a valid {{.}}
+        Enter a valid {{.Error}}
       </div>
       {{end}}
       <form action="/matchup" method="post">
@@ -74,7 +74,7 @@
         From: <a href="http://github.com/yawhide" target="_blank">Yaw Hide</a>
       </p>
     </div>
-    <script type="text/javascript" src="static/js/awesomplete.min.js"></script>
-    <script type="text/javascript" src="static/js/index.js"></script>
+    <script type="text/javascript" src="{{.Prefix}}static/js/awesomplete.min.js"></script>
+    <script type="text/javascript" src="{{.Prefix}}static/js/index.js"></script>
   </body>
 </html>

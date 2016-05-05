@@ -13,9 +13,16 @@ import (
 )
 
 var db *pg.DB
+var urlPrefix string
+
+type IndexResult struct {
+    Prefix string
+    Error error
+}
 
 type MatchupResult struct {
     Enemy string
+    Prefix string
     Role string
     Matchups []ChampionMatchup
 }
@@ -37,6 +44,7 @@ func main() {
     }
     username := viper.GetString("postgres.username")
     password := viper.GetString("postgres.password")
+    urlPrefix = viper.GetString("urlPrefix")
 
     db = pg.Connect(&pg.Options{
         User: username,
@@ -89,8 +97,9 @@ func main() {
 
 func Index(w http.ResponseWriter, r *http.Request) {
     if r.Method == "GET" {
+        result := IndexResult{urlPrefix, nil}
         t, _ := template.ParseFiles("index.html")
-        t.Execute(w, nil)
+        t.Execute(w, result)
     } else {
         http.Redirect(w, r, "/", 301)
     }
@@ -118,14 +127,17 @@ func GetMatchup(w http.ResponseWriter, r *http.Request) {
                 err = "Region"
             }
             t, _ := template.ParseFiles("index.html")
-            t.Execute(w, errors.New(err))
+            fmt.Println(errors.New(err))
+            result := IndexResult{urlPrefix, errors.New(err)}
+            t.Execute(w, result)
             return
         }
 
         enemy = NormalizeChampion(enemy)
         if CHAMPION_KEYS[enemy] == "" {
             t, _ := template.ParseFiles("index.html")
-            t.Execute(w, errors.New("Enemy Champion"))
+            result := IndexResult{urlPrefix, errors.New("Enemy Champion")}
+            t.Execute(w, result)
             return
         }
 
@@ -138,7 +150,8 @@ func GetMatchup(w http.ResponseWriter, r *http.Request) {
         if err != nil {
             t, _ := template.ParseFiles("index.html")
             fmt.Println("Error get or create summoner", err)
-            t.Execute(w, err.Error())
+            result := IndexResult{urlPrefix, err}
+            t.Execute(w, result)
             return
         }
         var matchups []ChampionMatchup
@@ -150,7 +163,7 @@ func GetMatchup(w http.ResponseWriter, r *http.Request) {
         for index, matchup := range matchups {
             matchups[index].SetChampion(CHAMPION_KEYS_BY_KEY_PROPER_CASING[matchup.Champion])
         }
-        result := MatchupResult{CHAMPION_KEYS_BY_KEY_PROPER_CASING[CHAMPION_KEYS[enemy]], role, matchups}
+        result := MatchupResult{CHAMPION_KEYS_BY_KEY_PROPER_CASING[CHAMPION_KEYS[enemy]], urlPrefix, role, matchups}
         t, _ := template.ParseFiles("matchups.html")
         t.Execute(w, result)
     } else {
