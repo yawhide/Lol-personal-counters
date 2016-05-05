@@ -174,7 +174,7 @@ func createSchema(db *pg.DB) error {
 }
 
 func getSummonerMasteriesAndSave(region, summonerName string, db *pg.DB) (err error) {
-    name := NormalizeSummonerName(summonerName)[0]
+    name := NormalizeSummonerName(summonerName)
     summoners, err := getSummonerIdByNameAndSave(region, name, db)
     if err != nil {
         fmt.Println(err)
@@ -331,7 +331,7 @@ func getWinrateForChampion(champion string, db *pg.DB) (matchups []ChampionMatch
 /* ======================== db methods ======================= */
 
 func getOrCreateSummoner(region string, summonerName string, db *pg.DB) (summoner Summoner, err error) {
-    name := NormalizeSummonerName(summonerName)[0]
+    name := NormalizeSummonerName(summonerName)
     err = db.Model(&summoner).Where("name = ?", name).Select()
     if err != nil {
         if err.Error() == "pg: no rows in result set" {
@@ -419,13 +419,10 @@ func createSummonerIDString(summonerID []int64) (summonerIDstr string, err error
 
 //NormalizeSummonerName takes an arbitrary number of strings and returns a string array containing the strings
 //standardized to league of legends internal standard (lowecase and strings removed)
-func NormalizeSummonerName(summonerNames ...string) []string {
-    for i, v := range summonerNames {
-        summonerName := strings.ToLower(v)
-        summonerName = strings.Replace(summonerName, " ", "", -1)
-        summonerNames[i] = summonerName
-    }
-    return summonerNames
+func NormalizeSummonerName(summonerName string) string {
+    summonerName = strings.ToLower(summonerName)
+    summonerName = strings.Replace(summonerName, " ", "", -1)
+    return summonerName
 }
 
 func NormalizeChampion(name string) string {

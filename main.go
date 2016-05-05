@@ -20,10 +20,11 @@ type IndexResult struct {
 }
 
 type MatchupResult struct {
-    Enemy    string
-    Prefix   string
-    Role     string
-    Matchups []ChampionMatchup
+    Enemy        string
+    Prefix       string
+    Role         string
+    SummonerName string
+    Matchups     []ChampionMatchup
 }
 
 func main() {
@@ -71,7 +72,7 @@ func main() {
     // }
 
 
-    // summoner, err := getSummonerById(NormalizeSummonerName("Yaw Hide")[0], db)
+    // summoner, err := getSummonerById(NormalizeSummonerName("Yaw Hide"), db)
     // if err != nil {
     //     panic(err)
     // }
@@ -82,6 +83,10 @@ func main() {
     fs := http.FileServer(http.Dir("static"))
     http.Handle(urlPrefix + "static/", http.StripPrefix(urlPrefix + "static/", fs))
     fmt.Println("Server started")
+    // analytics
+    http.HandleFunc(urlPrefix + "analytics/index", AnalyzeIndex)
+    http.HandleFunc(urlPrefix + "analytics/matchup", AnalyzeMatchup)
+    http.HandleFunc(urlPrefix + "analytics/external", AnalyzeExternalLink)
     err = http.ListenAndServe(":8080", nil)
     if err != nil {
         log.Fatal("ListenAndServe: ", err)
@@ -156,7 +161,7 @@ func GetMatchup(w http.ResponseWriter, r *http.Request) {
         for index, matchup := range matchups {
             matchups[index].SetChampion(CHAMPION_KEYS_BY_KEY_PROPER_CASING[matchup.Champion])
         }
-        result := MatchupResult{CHAMPION_KEYS_BY_KEY_PROPER_CASING[CHAMPION_KEYS[enemy]], urlPrefix, role, matchups}
+        result := MatchupResult{CHAMPION_KEYS_BY_KEY_PROPER_CASING[CHAMPION_KEYS[enemy]], urlPrefix, role, summonerName, matchups}
         t, _ := template.ParseFiles("matchups.html")
         t.Execute(w, result)
     } else {

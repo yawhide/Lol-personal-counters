@@ -31,7 +31,8 @@
         {{else}} {{.Enemy}} {{end}}
       </p>
       <img src="http://ddragon.leagueoflegends.com/cdn/6.7.1/img/champion/{{.Enemy}}.png" height="40">
-      <p>Role: {{.Role}}</p>
+      <p class="role" id="{{.Role}}">Role: {{.Role}}</p>
+      <p class="summonerName" id="{{.SummonerName}}">Summoner: {{.SummonerName}}</p>
       <table class="table">
         <thead>
           <tr>
@@ -45,25 +46,25 @@
           <tr>
             <th>
               <img src="http://ddragon.leagueoflegends.com/cdn/6.7.1/img/champion/{{.Champion}}.png" height="40">
-                <a href="http://champion.gg/champion/{{.Champion}}/{{.Role}}" target="_blank" class="padding-left-10">
-                {{if eq .Champion "MonkeyKing" }} Wukong
-                {{else if eq .Champion "MasterYi"}} Master Yi
-                {{else if eq .Champion "DrMundo"}} Dr. Mundo
-                {{else if eq .Champion "Velkoz"}} Vel'Koz
-                {{else if eq .Champion "Leblanc"}} LeBlanc
-                {{else if eq .Champion "XinZhao"}} Xin Zhao
-                {{else if eq .Champion "Chogath"}} Cho'Gath
-                {{else if eq .Champion "TwistedFate"}} Twisted Fate
-                {{else if eq .Champion "MissFortune"}} Miss Fortune
-                {{else if eq .Champion "KogMaw"}} Kog'Maw
-                {{else if eq .Champion "TahmKench"}} Tahm Kench
-                {{else if eq .Champion "JarvanIV"}} Jarvan IV
-                {{else if eq .Champion "AurelionSol"}} Aurelion Sol
-                {{else if eq .Champion "LeeSin"}} Lee Sin
-                {{else}} {{.Champion}}
-                {{end}}
-                </a>
-              </th>
+              <a href="http://champion.gg/champion/{{.Champion}}/{{.Role}}" target="_blank" class="padding-left-10">
+              {{if eq .Champion "MonkeyKing" }} Wukong
+              {{else if eq .Champion "MasterYi"}} Master Yi
+              {{else if eq .Champion "DrMundo"}} Dr. Mundo
+              {{else if eq .Champion "Velkoz"}} Vel'Koz
+              {{else if eq .Champion "Leblanc"}} LeBlanc
+              {{else if eq .Champion "XinZhao"}} Xin Zhao
+              {{else if eq .Champion "Chogath"}} Cho'Gath
+              {{else if eq .Champion "TwistedFate"}} Twisted Fate
+              {{else if eq .Champion "MissFortune"}} Miss Fortune
+              {{else if eq .Champion "KogMaw"}} Kog'Maw
+              {{else if eq .Champion "TahmKench"}} Tahm Kench
+              {{else if eq .Champion "JarvanIV"}} Jarvan IV
+              {{else if eq .Champion "AurelionSol"}} Aurelion Sol
+              {{else if eq .Champion "LeeSin"}} Lee Sin
+              {{else}} {{.Champion}}
+              {{end}}
+              </a>
+            </th>
             <th>{{.WinRate}}</th>
             <th>{{.Games}}</th>
           </tr>
@@ -71,5 +72,8 @@
         </tbody>
       </table>
     </div>
+    <script type="text/javascript" src="{{.Prefix}}static/js/promise.min.js"></script>
+    <script type="text/javascript" src="{{.Prefix}}static/js/fetch.min.js"></script>
+    <script type="text/javascript" src="{{.Prefix}}static/js/index.js"></script>
   </body>
 </html>
