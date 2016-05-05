@@ -352,7 +352,7 @@ func getOrCreateSummoner(region string, summonerName string, db *pg.DB) (summone
     }
     if summoner.MasteriesUpdatedAt.UTC().Add(time.Duration(60*60*24)*time.Second).Before(time.Now().UTC()) {
         fmt.Printf("Summoner %s masteries are out of date...lets update them!\n", summoner.Name)
-        getChampionMasteriesBySummonerIdAndSave("NA", summoner.SummonerId, db)
+        getChampionMasteriesBySummonerIdAndSave(region, summoner.SummonerId, db)
     }
 
     fmt.Println("getSummonerById", name, summoner)
