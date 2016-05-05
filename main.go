@@ -8,7 +8,6 @@ import (
     "gopkg.in/pg.v4"
     "log"
     "net/http"
-    "os"
     "strings"
 )
 
@@ -28,12 +27,6 @@ type MatchupResult struct {
 }
 
 func main() {
-
-    port := os.Getenv("PORT")
-
-    if port == "" {
-        log.Fatal("$PORT must be set")
-    }
 
     viper.SetConfigName("config")
     viper.AddConfigPath(".")
@@ -89,7 +82,7 @@ func main() {
     fs := http.FileServer(http.Dir("static"))
     http.Handle(urlPrefix + "static/", http.StripPrefix(urlPrefix + "static/", fs))
     fmt.Println("Server started")
-    err = http.ListenAndServe(":" + port, nil)
+    err = http.ListenAndServe(":8080", nil)
     if err != nil {
         log.Fatal("ListenAndServe: ", err)
     }
