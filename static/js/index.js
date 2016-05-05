@@ -21,7 +21,7 @@ if (storage.summonerName) {
 $form.onsubmit = function (e) {
   if ($form.save.checked) {
     storage.summonerName = $form.name.value;
-    storage.region = $regionBtn.innerText;
+    storage.region = $regionBtn.innerText.trim();
     storage.role = $form.role.value;
   } else if (localStorage['lol-personal-counter']) {
     delete storage.summonerName;
