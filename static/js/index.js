@@ -36,7 +36,7 @@ if ($form) {
       delete storage.role;
     }
     localStorage['lol-personal-counter'] = JSON.stringify(storage);
-    fetch('/analytics/index', {
+    fetch(urlPrefix + 'analytics/index', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -73,7 +73,7 @@ if ($form) {
 
 for (var i = 0; i < $championGGLinks.length; i++) {
   $championGGLinks[i].onclick = function (e) {
-    fetch('/analytics/matchup', {
+    fetch(urlPrefix + 'analytics/matchup', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -91,7 +91,7 @@ for (var i = 0; i < $championGGLinks.length; i++) {
 
 if ($yawhideLink) {
   $yawhideLink.onclick = function (e) {
-    fetch('/analytics/external', {
+    fetch(urlPrefix + 'analytics/external', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
