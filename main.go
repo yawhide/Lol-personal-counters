@@ -84,10 +84,10 @@ func main() {
     // }
     // getMatchups(summoner.SummonerId, "57", db)
 
-    http.HandleFunc("/", Index)
-    http.HandleFunc("/matchup", GetMatchup)
+    http.HandleFunc(urlPrefix + "", Index)
+    http.HandleFunc(urlPrefix + "matchup", GetMatchup)
     fs := http.FileServer(http.Dir("static"))
-    http.Handle("/static/", http.StripPrefix("/static/", fs))
+    http.Handle(urlPrefix + "static/", http.StripPrefix("/static/", fs))
     fmt.Println("Server started")
     err = http.ListenAndServe(":" + port, nil)
     if err != nil {
