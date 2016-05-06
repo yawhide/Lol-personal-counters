@@ -8,8 +8,18 @@
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   </head>
   <body>
+
+	<!-- header -->
+      <div class="header row text-center">
+      	<div class="container">
+      		<h3>League of Legends</h3>
+      		<h1>Personal Counters</h1>
+      	</div>
+      </div>
+
     <div class="container">
-      <h1>LoL Personal Counters</h1>
+    	<!-- content -->
+    	<div class="content row">
       {{if .Error}}
       <div class="alert alert-danger" role="alert">
         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
@@ -62,7 +72,7 @@
             <input type="checkbox" id="save" name="save"> Save Summoner Name
           </label>
         </div>
-        <input class="form-control" type="submit" value="Find">
+        <input class="form-control find" type="submit" value="Find">
       </form>
       <p>
         Figure out your personal counterpick (based on champion mastery points, and using champion.gg winrates).
@@ -70,6 +80,8 @@
       <p>
         From: <a href="http://github.com/yawhide" target="_blank">Yaw Hide</a>
       </p>
+	</div>
+
     </div>
     <script type="text/javascript" src="{{.Prefix}}static/js/awesomplete.min.js"></script>
     <script type="text/javascript" src="{{.Prefix}}static/js/promise.min.js"></script>
