@@ -8,6 +8,11 @@ import (
     "net/http"
 )
 
+type AnalyticsPage struct {
+    Page     string
+    Referrer string
+}
+
 type AnalyticsIndex struct {
     SummonerName string
     Enemy        string
@@ -45,6 +50,10 @@ type AnalyticsExternalLink struct {
 }
 
 var createTableSql = []string{
+    `CREATE TABLE IF NOT EXISTS analytics_pages (
+        page text,
+        referrer text)`,
+
     `CREATE TABLE IF NOT EXISTS analytics_indices (
         summoner_name text,
         enemy text,

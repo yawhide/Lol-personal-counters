@@ -78,6 +78,10 @@ func main() {
     // }
     // getMatchups(summoner.SummonerId, "57", db)
 
+    serveSingle("/sitemap.xml", "./static/sitemap.xml")
+    serveSingle("/favicon.ico", "./static/favicon.ico")
+    serveSingle("/robots.txt", "./static/robots.txt")
+
     http.HandleFunc(urlPrefix + "", Index)
     http.HandleFunc(urlPrefix + "matchup", GetMatchup)
     fs := http.FileServer(http.Dir("static"))
@@ -93,10 +97,22 @@ func main() {
     }
 }
 
+func serveSingle(pattern string, filename string) {
+    http.HandleFunc(pattern, func(w http.ResponseWriter, r *http.Request) {
+        http.ServeFile(w, r, filename)
+    })
+}
+
 func Index(w http.ResponseWriter, r *http.Request) {
     if r.Method == "GET" {
         result := IndexResult{urlPrefix, nil}
         t, _ := template.ParseFiles("index.html")
+        a := AnalyticsPage{"/", r.Referer()}
+        // fmt.Println(a)
+        err := db.Create(&a)
+        if err != nil {
+            fmt.Println("Failed to save index analyics", err)
+        }
         t.Execute(w, result)
     } else {
         http.Redirect(w, r, "/", 301)
@@ -125,7 +141,6 @@ func GetMatchup(w http.ResponseWriter, r *http.Request) {
                 err = "Region"
             }
             t, _ := template.ParseFiles("index.html")
-            fmt.Println(errors.New(err))
             result := IndexResult{urlPrefix, errors.New(err)}
             t.Execute(w, result)
             return
@@ -139,10 +154,17 @@ func GetMatchup(w http.ResponseWriter, r *http.Request) {
             return
         }
 
-        fmt.Println("enemy:", enemy, CHAMPION_KEYS[enemy])
-        fmt.Println("region:", region)
-        fmt.Println("role:", role)
-        fmt.Println("summoner name:", summonerName)
+        // fmt.Println("enemy:", enemy, CHAMPION_KEYS[enemy])
+        // fmt.Println("region:", region)
+        // fmt.Println("role:", role)
+        // fmt.Println("summoner name:", summonerName)
+
+        a := AnalyticsPage{"/matchup", r.Referer()}
+        // fmt.Println(a)
+        err := db.Create(&a)
+        if err != nil {
+            fmt.Println("Failed to save index analyics", err)
+        }
 
         summoner, err := getOrCreateSummoner(region, summonerName, db)
         if err != nil {
