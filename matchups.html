@@ -7,75 +7,105 @@
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   </head>
   <body>
+      <!-- header -->
+      <div class="header row text-center">
+        <div class="container">
+          <h3>League of Legends</h3>
+          <h1>Personal Counters</h1>
+        </div>
+      </div>
+
     <div class="container">
-      <h1>LoL Personal Counters</h1>
-      <a type="button" class="btn btn-default" href="{{.Prefix}}">
-        <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Choose Another Matchup
-      </a>
+    	<div class="row enemy">
+	    	<div class="col-sm-offset-3 col-sm-3 col-md-offset-4 col-md-2 text-center enemyimg">
+	    		<img src="http://ddragon.leagueoflegends.com/cdn/6.7.1/img/champion/{{.Enemy}}.png">
+	    	</div>
+	    	<div class="col-sm-4 enemystats" id="enemy">
+		      <p><b>
+		        Enemy:</b>
+		        {{if eq .Enemy "MonkeyKing" }} Wukong
+		        {{else if eq .Enemy "MasterYi"}} Master Yi
+		        {{else if eq .Enemy "DrMundo"}} Dr. Mundo
+		        {{else if eq .Enemy "Velkoz"}} Vel'Koz
+		        {{else if eq .Enemy "Leblanc"}} LeBlanc
+		        {{else if eq .Enemy "XinZhao"}} Xin Zhao
+		        {{else if eq .Enemy "Chogath"}} Cho'Gath
+		        {{else if eq .Enemy "TwistedFate"}} Twisted Fate
+		        {{else if eq .Enemy "MissFortune"}} Miss Fortune
+		        {{else if eq .Enemy "KogMaw"}} Kog'Maw
+		        {{else if eq .Enemy "TahmKench"}} Tahm Kench
+		        {{else if eq .Enemy "JarvanIV"}} Jarvan IV
+		        {{else if eq .Enemy "AurelionSol"}} Aurelion Sol
+		        {{else if eq .Enemy "LeeSin"}} Lee Sin
+		        {{else}} {{.Enemy}} {{end}}
+		      </p>
+		      
+		      <p class="role" id="{{.Role}}"><b>Role:</b> {{.Role}}</p>
+		      <p class="summonerName" id="{{.SummonerName}}"><b>Summoner:</b> {{.SummonerName}}</p>
+		  </div>
+		  <div class="col-xs-12 text-center">
+		  	<a type="button" class="btn btn-default goback" href="{{.Prefix}}">
+		        <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Choose Another Matchup
+		      </a>
+		  </div>
+		</div>
+
+	  <div class="col-md-offset-1 col-md-10">
+	      <table class="table championList" id="championList">
+	        <thead>
+	          <tr>
+	            <th>Champions You Own</th>
+	            <th>Average Ranked Win Rate from Champion.gg</th>
+	            <th>Games Contributing to Average</th>
+	          </tr>
+	        </thead>
+	        <tbody>
+	          {{ range .Matchups }}
+	          <tr>
+	            <th>
+	              <img src="http://ddragon.leagueoflegends.com/cdn/6.7.1/img/champion/{{.Champion}}.png" height="40">
+	              <a href="http://champion.gg/champion/{{.Champion}}/{{.Role}}" target="_blank" class="padding-left-10">
+	              {{if eq .Champion "MonkeyKing" }} Wukong
+	              {{else if eq .Champion "MasterYi"}} Master Yi
+	              {{else if eq .Champion "DrMundo"}} Dr. Mundo
+	              {{else if eq .Champion "Velkoz"}} Vel'Koz
+	              {{else if eq .Champion "Leblanc"}} LeBlanc
+	              {{else if eq .Champion "XinZhao"}} Xin Zhao
+	              {{else if eq .Champion "Chogath"}} Cho'Gath
+	              {{else if eq .Champion "TwistedFate"}} Twisted Fate
+	              {{else if eq .Champion "MissFortune"}} Miss Fortune
+	              {{else if eq .Champion "KogMaw"}} Kog'Maw
+	              {{else if eq .Champion "TahmKench"}} Tahm Kench
+	              {{else if eq .Champion "JarvanIV"}} Jarvan IV
+	              {{else if eq .Champion "AurelionSol"}} Aurelion Sol
+	              {{else if eq .Champion "LeeSin"}} Lee Sin
+	              {{else}} {{.Champion}}
+	              {{end}}
+	              </a>
+	            </th>
+	            <th>{{.WinRate}}</th>
+	            <th>{{.Games}}</th>
+	          </tr>
+	          {{ end }}
+	        </tbody>
+	      </table>
+	  </div>
+
+      <div class="col-xs-12 text-center footer">
       <p>
-        Enemy:
-        {{if eq .Enemy "MonkeyKing" }} Wukong
-        {{else if eq .Enemy "MasterYi"}} Master Yi
-        {{else if eq .Enemy "DrMundo"}} Dr. Mundo
-        {{else if eq .Enemy "Velkoz"}} Vel'Koz
-        {{else if eq .Enemy "Leblanc"}} LeBlanc
-        {{else if eq .Enemy "XinZhao"}} Xin Zhao
-        {{else if eq .Enemy "Chogath"}} Cho'Gath
-        {{else if eq .Enemy "TwistedFate"}} Twisted Fate
-        {{else if eq .Enemy "MissFortune"}} Miss Fortune
-        {{else if eq .Enemy "KogMaw"}} Kog'Maw
-        {{else if eq .Enemy "TahmKench"}} Tahm Kench
-        {{else if eq .Enemy "JarvanIV"}} Jarvan IV
-        {{else if eq .Enemy "AurelionSol"}} Aurelion Sol
-        {{else if eq .Enemy "LeeSin"}} Lee Sin
-        {{else}} {{.Enemy}} {{end}}
+        Figure out your personal counterpick (based on champion mastery points, and using champion.gg winrates).
       </p>
-      <img src="http://ddragon.leagueoflegends.com/cdn/6.7.1/img/champion/{{.Enemy}}.png" height="40">
-      <p class="role" id="{{.Role}}">Role: {{.Role}}</p>
-      <p class="summonerName" id="{{.SummonerName}}">Summoner: {{.SummonerName}}</p>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Champions You Own</th>
-            <th>Average Ranked Win Rate from Champion.gg</th>
-            <th>Games Contributing to Average</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{ range .Matchups }}
-          <tr>
-            <th>
-              <img src="http://ddragon.leagueoflegends.com/cdn/6.7.1/img/champion/{{.Champion}}.png" height="40">
-              <a href="http://champion.gg/champion/{{.Champion}}/{{.Role}}" target="_blank" class="padding-left-10">
-              {{if eq .Champion "MonkeyKing" }} Wukong
-              {{else if eq .Champion "MasterYi"}} Master Yi
-              {{else if eq .Champion "DrMundo"}} Dr. Mundo
-              {{else if eq .Champion "Velkoz"}} Vel'Koz
-              {{else if eq .Champion "Leblanc"}} LeBlanc
-              {{else if eq .Champion "XinZhao"}} Xin Zhao
-              {{else if eq .Champion "Chogath"}} Cho'Gath
-              {{else if eq .Champion "TwistedFate"}} Twisted Fate
-              {{else if eq .Champion "MissFortune"}} Miss Fortune
-              {{else if eq .Champion "KogMaw"}} Kog'Maw
-              {{else if eq .Champion "TahmKench"}} Tahm Kench
-              {{else if eq .Champion "JarvanIV"}} Jarvan IV
-              {{else if eq .Champion "AurelionSol"}} Aurelion Sol
-              {{else if eq .Champion "LeeSin"}} Lee Sin
-              {{else}} {{.Champion}}
-              {{end}}
-              </a>
-            </th>
-            <th>{{.WinRate}}</th>
-            <th>{{.Games}}</th>
-          </tr>
-          {{ end }}
-        </tbody>
-      </table>
+      <p>
+        From: <a href="http://github.com/yawhide" target="_blank">Yaw Hide</a> &amp; <a href="http://github.com/Ooblah" target="_blank">Ooblah</a>
+      </p>
+  </div>
+
     </div>
     <script type="text/javascript" src="{{.Prefix}}static/js/promise.min.js"></script>
     <script type="text/javascript" src="{{.Prefix}}static/js/fetch.min.js"></script>
     <script type="text/javascript">var urlPrefix = "{{.Prefix}}"</script>
     <script type="text/javascript" src="{{.Prefix}}static/js/index.js"></script>
+    <script type="text/javascript" src="{{.Prefix}}static/js/style.js"></script>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
