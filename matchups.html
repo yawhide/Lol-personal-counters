@@ -16,32 +16,39 @@
       </div>
 
     <div class="container">
-    	<div class="col-md-offset-2 col-md-8 text-center enemy" id="enemy">
-	      <p><b>
-	        Enemy:</b>
-	        {{if eq .Enemy "MonkeyKing" }} Wukong
-	        {{else if eq .Enemy "MasterYi"}} Master Yi
-	        {{else if eq .Enemy "DrMundo"}} Dr. Mundo
-	        {{else if eq .Enemy "Velkoz"}} Vel'Koz
-	        {{else if eq .Enemy "Leblanc"}} LeBlanc
-	        {{else if eq .Enemy "XinZhao"}} Xin Zhao
-	        {{else if eq .Enemy "Chogath"}} Cho'Gath
-	        {{else if eq .Enemy "TwistedFate"}} Twisted Fate
-	        {{else if eq .Enemy "MissFortune"}} Miss Fortune
-	        {{else if eq .Enemy "KogMaw"}} Kog'Maw
-	        {{else if eq .Enemy "TahmKench"}} Tahm Kench
-	        {{else if eq .Enemy "JarvanIV"}} Jarvan IV
-	        {{else if eq .Enemy "AurelionSol"}} Aurelion Sol
-	        {{else if eq .Enemy "LeeSin"}} Lee Sin
-	        {{else}} {{.Enemy}} {{end}}
-	      </p>
-	      <img src="http://ddragon.leagueoflegends.com/cdn/6.7.1/img/champion/{{.Enemy}}.png" height="40">
-	      <p class="role" id="{{.Role}}"><b>Role:</b> {{.Role}}</p>
-	      <p class="summonerName" id="{{.SummonerName}}"><b>Summoner:</b> {{.SummonerName}}</p>
-	      <a type="button" class="btn btn-default goback" href="{{.Prefix}}">
-	        <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Choose Another Matchup
-	      </a>
-	  </div>
+    	<div class="row enemy">
+	    	<div class="col-sm-offset-3 col-sm-3 col-md-offset-4 col-md-2 text-center enemyimg">
+	    		<img src="http://ddragon.leagueoflegends.com/cdn/6.7.1/img/champion/{{.Enemy}}.png">
+	    	</div>
+	    	<div class="col-sm-4 enemystats" id="enemy">
+		      <p><b>
+		        Enemy:</b>
+		        {{if eq .Enemy "MonkeyKing" }} Wukong
+		        {{else if eq .Enemy "MasterYi"}} Master Yi
+		        {{else if eq .Enemy "DrMundo"}} Dr. Mundo
+		        {{else if eq .Enemy "Velkoz"}} Vel'Koz
+		        {{else if eq .Enemy "Leblanc"}} LeBlanc
+		        {{else if eq .Enemy "XinZhao"}} Xin Zhao
+		        {{else if eq .Enemy "Chogath"}} Cho'Gath
+		        {{else if eq .Enemy "TwistedFate"}} Twisted Fate
+		        {{else if eq .Enemy "MissFortune"}} Miss Fortune
+		        {{else if eq .Enemy "KogMaw"}} Kog'Maw
+		        {{else if eq .Enemy "TahmKench"}} Tahm Kench
+		        {{else if eq .Enemy "JarvanIV"}} Jarvan IV
+		        {{else if eq .Enemy "AurelionSol"}} Aurelion Sol
+		        {{else if eq .Enemy "LeeSin"}} Lee Sin
+		        {{else}} {{.Enemy}} {{end}}
+		      </p>
+		      
+		      <p class="role" id="{{.Role}}"><b>Role:</b> {{.Role}}</p>
+		      <p class="summonerName" id="{{.SummonerName}}"><b>Summoner:</b> {{.SummonerName}}</p>
+		  </div>
+		  <div class="col-xs-12 text-center">
+		  	<a type="button" class="btn btn-default goback" href="{{.Prefix}}">
+		        <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Choose Another Matchup
+		      </a>
+		  </div>
+		</div>
 
 	  <div class="col-md-offset-1 col-md-10">
 	      <table class="table championList" id="championList">

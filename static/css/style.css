@@ -22,6 +22,7 @@ body{
 	color: #20ac89;
 	font-family: Futura,"Trebuchet MS",Arial,sans-serif;
 	font-size: 1.8em;
+	font-weight: normal;
 	width: 100%;
 }
 
@@ -192,13 +193,54 @@ h1{
 
 .enemy{
 	margin-bottom: 50px;
-	color: #66afe9;
+	color: #ddd;
+	font-size: 16px;
 }
 
 .enemy b{
-	color: #fff;
+	color: #79b8ec;
+}
+
+.enemystats{
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.enemyimg{
+	padding-bottom: 20px;
 }
 
 .championList{
 	margin-bottom: 50px;
+}
+
+.championList > tbody > tr > th{
+	border-bottom: 1px solid #20ac89;
+	font-size: 14px;
+}
+
+.championList > tbody > tr > th:not(:first-child){
+	padding-top: 15px;
+}
+
+.championList > tbody > tr > th:first-child{
+	text-align: left;
+	padding-left: 20px;
+}
+
+.championList a{
+	color: #fff;
+}
+
+.championList a:hover,
+.championList a:active,
+.championList a:focus{
+	color: #66afe9;
+	text-decoration: none;
+}
+
+@media (max-width: 767px) {
+	.enemystats{
+		text-align: center;
+	}
 }
