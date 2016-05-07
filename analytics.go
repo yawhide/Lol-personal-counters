@@ -22,7 +22,7 @@ type AnalyticsIndex struct {
 }
 
 func (a *AnalyticsIndex) SetSummonerName(name string) {
-    a.SummonerName = NormalizeSummonerName(name)
+    a.SummonerName = NormalizeSummonerName(name)[0]
 }
 
 func (a *AnalyticsIndex) SetEnemy(name string) {
@@ -37,7 +37,7 @@ type AnalyticsMatchup struct {
 }
 
 func (a *AnalyticsMatchup) SetSummonerName(name string) {
-    a.SummonerName = NormalizeSummonerName(name)
+    a.SummonerName = NormalizeSummonerName(name)[0]
 }
 
 func (a *AnalyticsMatchup) SetEnemy(name string) {

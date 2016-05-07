@@ -50,7 +50,12 @@ func main() {
         panic(err)
     }
 
-    // var summoner Summoner
+    err = setupRiotApi()
+    if err != nil {
+        panic(err)
+    }
+
+    // var summoner MySummoner
     // err := db.Model(&summoner).Column("summoner.*", "Masteries").First()
     // if err != nil {
     //     panic(err)
