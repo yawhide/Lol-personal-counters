@@ -1,17 +1,20 @@
 package main
 
 import (
+    "encoding/json"
     "fmt"
     "github.com/spf13/viper"
     "gopkg.in/pg.v4"
-    "http"
-    "json"
+    "io/ioutil"
+    "net/http"
 )
+
+var db *pg.DB
 
 func main() {
 
     viper.SetConfigName("config")
-    viper.AddConfigPath(".")
+    viper.AddConfigPath("../")
     viper.SetConfigType("json")
     err := viper.ReadInConfig()
     if err != nil { // Handle errors reading the config file
@@ -20,12 +23,12 @@ func main() {
     username := viper.GetString("postgres.username")
     password := viper.GetString("postgres.password")
 
-    db := pg.Connect(&pg.Options{
+    db = pg.Connect(&pg.Options{
         User: username,
         Password: password,
     })
 
-    _, err = db.Exec(`DROP TABLE champion_matchups`)
+    _, err = db.Exec(`DROP TABLE IF EXISTS champion_matchups`)
     if err != nil {
         panic(err)
     }
@@ -101,13 +104,4 @@ func requestAndUnmarshal(requestURL string, v interface{}) (err error) {
         return
     }
     return
-}
-
-
-func NormalizeChampion(name string) string {
-    name = strings.ToLower(name)
-    name = strings.Replace(name, " ", "", -1)
-    name = strings.Replace(name, "'", "", -1)
-    name = strings.Replace(name, ".", "", -1)
-    return name
 }

@@ -19,7 +19,7 @@ type IndexResult struct {
     Error  error
 }
 
-type MatchupResult struct {
+type MatchupResults struct {
     Enemy        string
     Prefix       string
     Role         string
@@ -33,7 +33,7 @@ func main() {
     viper.AddConfigPath(".")
     viper.SetConfigType("json")
     err := viper.ReadInConfig()
-    if err != nil { // Handle errors reading the config file
+    if err != nil {
         panic(fmt.Errorf("Fatal error config file: %s \n", err))
     }
     username := viper.GetString("postgres.username")
@@ -116,7 +116,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
         // fmt.Println(a)
         err := db.Create(&a)
         if err != nil {
-            fmt.Println("Failed to save index analyics", err)
+            fmt.Println("Failed to save page analyics", err)
         }
         t.Execute(w, result)
     } else {
@@ -188,7 +188,8 @@ func GetMatchup(w http.ResponseWriter, r *http.Request) {
         for index, matchup := range matchups {
             matchups[index].SetChampion(CHAMPION_KEYS_BY_KEY_PROPER_CASING[matchup.Champion])
         }
-        result := MatchupResult{CHAMPION_KEYS_BY_KEY_PROPER_CASING[CHAMPION_KEYS[enemy]], urlPrefix, role, summonerName, matchups}
+        // fmt.Println(CHAMPION_KEYS_BY_KEY_PROPER_CASING[CHAMPION_KEYS[enemy]], urlPrefix, role, summonerName, matchups)
+        result := MatchupResults{CHAMPION_KEYS_BY_KEY_PROPER_CASING[CHAMPION_KEYS[enemy]], urlPrefix, role, summonerName, matchups}
         t, _ := template.ParseFiles("matchups.html")
         t.Execute(w, result)
     } else {

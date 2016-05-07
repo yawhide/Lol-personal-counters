@@ -87,10 +87,10 @@ type Matchup struct {
 }
 
 type ChampionMatchup struct {
-    Champion string `sql:",pk`
-    Enemy string `sql:",pk`
+    Champion string
+    Enemy string
     Games int
-    Role string `sql:",pk`
+    Role string
     StatScore float32
     WinRate float32
 }
@@ -342,13 +342,13 @@ func getMatchups(summoner_id uint64, enemy_champion_id string, role string, db *
     //     summoner_id)
     // fmt.Println(sql)
     // res, err := db.Exec(sql)
-    err = db.Model(&matchups).Where("role = ? AND enemy = ? AND champion IN (SELECT CAST(champion_id AS text) FROM masteries WHERE summoner_id = ?)", role, enemy_champion_id, summoner_id).Order("win_rate desc").Select()
+
+    err = db.Model(&matchups).Where("role = ? AND enemy = ? AND champion IN (SELECT  CAST(champion_id AS text) FROM masteries WHERE summoner_id = ?)", role, enemy_champion_id, summoner_id).Order("win_rate desc").Select()
     if err != nil {
-        fmt.Println("Failed to get matchups from database", err)
+        fmt.Println(err)
         return
     }
-
-    // fmt.Println("matchups", matchups)
+    // fmt.Println(matchups)
     return
 }
 

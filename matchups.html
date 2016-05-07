@@ -23,23 +23,23 @@
 	    	<div class="col-sm-4 enemystats" id="enemy">
 		      <p><b>
 		        Enemy:</b>
-		        {{if eq .Enemy "MonkeyKing" }} Wukong
-		        {{else if eq .Enemy "MasterYi"}} Master Yi
-		        {{else if eq .Enemy "DrMundo"}} Dr. Mundo
-		        {{else if eq .Enemy "Velkoz"}} Vel'Koz
-		        {{else if eq .Enemy "Leblanc"}} LeBlanc
-		        {{else if eq .Enemy "XinZhao"}} Xin Zhao
-		        {{else if eq .Enemy "Chogath"}} Cho'Gath
-		        {{else if eq .Enemy "TwistedFate"}} Twisted Fate
-		        {{else if eq .Enemy "MissFortune"}} Miss Fortune
-		        {{else if eq .Enemy "KogMaw"}} Kog'Maw
-		        {{else if eq .Enemy "TahmKench"}} Tahm Kench
-		        {{else if eq .Enemy "JarvanIV"}} Jarvan IV
-		        {{else if eq .Enemy "AurelionSol"}} Aurelion Sol
-		        {{else if eq .Enemy "LeeSin"}} Lee Sin
+		        {{if eq .Enemy "AurelionSol"}} Aurelion Sol
+            {{else if eq .Enemy "Chogath"}} Cho'Gath
+            {{else if eq .Enemy "DrMundo"}} Dr. Mundo
+            {{else if eq .Enemy "JarvanIV"}} Jarvan IV
+            {{else if eq .Enemy "KogMaw"}} Kog'Maw
+            {{else if eq .Enemy "Leblanc"}} LeBlanc
+            {{else if eq .Enemy "LeeSin"}} Lee Sin
+            {{else if eq .Enemy "MasterYi"}} Master Yi
+            {{else if eq .Enemy "MissFortune"}} Miss Fortune
+            {{else if eq .Enemy "TahmKench"}} Tahm Kench
+            {{else if eq .Enemy "TwistedFate"}} Twisted Fate
+            {{else if eq .Enemy "Velkoz"}} Vel'Koz
+            {{else if eq .Enemy "MonkeyKing" }} Wukong
+            {{else if eq .Enemy "XinZhao"}} Xin Zhao
 		        {{else}} {{.Enemy}} {{end}}
 		      </p>
-		      
+
 		      <p class="role" id="{{.Role}}"><b>Role:</b> {{.Role}}</p>
 		      <p class="summonerName" id="{{.SummonerName}}"><b>Summoner:</b> {{.SummonerName}}</p>
 		  </div>
@@ -65,21 +65,21 @@
 	            <th>
 	              <img src="http://ddragon.leagueoflegends.com/cdn/6.7.1/img/champion/{{.Champion}}.png" height="40">
 	              <a href="http://champion.gg/champion/{{.Champion}}/{{.Role}}" target="_blank" class="padding-left-10">
-	              {{if eq .Champion "MonkeyKing" }} Wukong
-	              {{else if eq .Champion "MasterYi"}} Master Yi
-	              {{else if eq .Champion "DrMundo"}} Dr. Mundo
-	              {{else if eq .Champion "Velkoz"}} Vel'Koz
-	              {{else if eq .Champion "Leblanc"}} LeBlanc
-	              {{else if eq .Champion "XinZhao"}} Xin Zhao
-	              {{else if eq .Champion "Chogath"}} Cho'Gath
-	              {{else if eq .Champion "TwistedFate"}} Twisted Fate
-	              {{else if eq .Champion "MissFortune"}} Miss Fortune
-	              {{else if eq .Champion "KogMaw"}} Kog'Maw
-	              {{else if eq .Champion "TahmKench"}} Tahm Kench
-	              {{else if eq .Champion "JarvanIV"}} Jarvan IV
-	              {{else if eq .Champion "AurelionSol"}} Aurelion Sol
-	              {{else if eq .Champion "LeeSin"}} Lee Sin
-	              {{else}} {{.Champion}}
+                {{if eq .Champion "AurelionSol"}} Aurelion Sol
+                {{else if eq .Champion "Chogath"}} Cho'Gath
+                {{else if eq .Champion "DrMundo"}} Dr. Mundo
+                {{else if eq .Champion "JarvanIV"}} Jarvan IV
+                {{else if eq .Champion "KogMaw"}} Kog'Maw
+                {{else if eq .Champion "Leblanc"}} LeBlanc
+                {{else if eq .Champion "LeeSin"}} Lee Sin
+                {{else if eq .Champion "MasterYi"}} Master Yi
+                {{else if eq .Champion "MissFortune"}} Miss Fortune
+                {{else if eq .Champion "TahmKench"}} Tahm Kench
+                {{else if eq .Champion "TwistedFate"}} Twisted Fate
+                {{else if eq .Champion "Velkoz"}} Vel'Koz
+                {{else if eq .Champion "MonkeyKing" }} Wukong
+                {{else if eq .Champion "XinZhao"}} Xin Zhao
+                {{else}} {{.Champion}}
 	              {{end}}
 	              </a>
 	            </th>
