@@ -114,7 +114,7 @@ h1{
 }
 
 .content-area{
-	max-width: 500px;
+	max-width: 400px;
 	float: none;
 	margin: 0 auto;
 	margin-bottom: 100px;
@@ -136,7 +136,7 @@ h1{
 }
 
 .selectpicker option{
-	color: #000;
+	color: #20ac89;
 	background-color: #fff;
 }
 
@@ -155,3 +155,12 @@ h1{
 	box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(255,255,255,.6)
 }
 
+.dropdown-menu > li > a{
+	color: #20ac89;
+}
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus{
+	color: #fff;
+	background-color: #66afe9;
+}
