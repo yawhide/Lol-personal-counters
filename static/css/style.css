@@ -97,12 +97,26 @@ h1{
 	box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px -8px rgba(102,175,233,.6)
 }
 
-.find{
+.find,
+.goback{
 	color: #000;
 	background-color: #20ac89;
 	border: 1px solid #333;
 	border-radius: 4px;
 }
+
+.find:hover,
+.find:focus,
+.goback:hover,
+.goback:focus{
+	background-color: #28d7ab;
+}
+
+.find:active,
+.goback:active{
+	background-color: #ccc;
+}
+
 
 .form-group{
 	margin-bottom: 50px;
@@ -149,10 +163,11 @@ h1{
 	font-size: 14px;
 }
 
-.find:focus{
-	color: #fff;
+.find:focus,
+.goback:focus{
+	color: #000;
 	-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(255,255,255,.6);
-	box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(255,255,255,.6)
+	box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(255,255,255,.6);
 }
 
 .dropdown-menu > li > a{
@@ -163,4 +178,27 @@ h1{
 .dropdown-menu > li > a:focus{
 	color: #fff;
 	background-color: #66afe9;
+}
+
+
+/* matchups */
+.goback{
+	border-color: none;
+}
+
+.goback:hover{
+	border-color: none;
+}
+
+.enemy{
+	margin-bottom: 50px;
+	color: #66afe9;
+}
+
+.enemy b{
+	color: #fff;
+}
+
+.championList{
+	margin-bottom: 50px;
 }

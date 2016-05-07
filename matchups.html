@@ -16,68 +16,73 @@
       </div>
 
     <div class="container">
-      <a type="button" class="btn btn-default" href="{{.Prefix}}">
-        <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Choose Another Matchup
-      </a>
-      <p>
-        Enemy:
-        {{if eq .Enemy "MonkeyKing" }} Wukong
-        {{else if eq .Enemy "MasterYi"}} Master Yi
-        {{else if eq .Enemy "DrMundo"}} Dr. Mundo
-        {{else if eq .Enemy "Velkoz"}} Vel'Koz
-        {{else if eq .Enemy "Leblanc"}} LeBlanc
-        {{else if eq .Enemy "XinZhao"}} Xin Zhao
-        {{else if eq .Enemy "Chogath"}} Cho'Gath
-        {{else if eq .Enemy "TwistedFate"}} Twisted Fate
-        {{else if eq .Enemy "MissFortune"}} Miss Fortune
-        {{else if eq .Enemy "KogMaw"}} Kog'Maw
-        {{else if eq .Enemy "TahmKench"}} Tahm Kench
-        {{else if eq .Enemy "JarvanIV"}} Jarvan IV
-        {{else if eq .Enemy "AurelionSol"}} Aurelion Sol
-        {{else if eq .Enemy "LeeSin"}} Lee Sin
-        {{else}} {{.Enemy}} {{end}}
-      </p>
-      <img src="http://ddragon.leagueoflegends.com/cdn/6.7.1/img/champion/{{.Enemy}}.png" height="40">
-      <p class="role" id="{{.Role}}">Role: {{.Role}}</p>
-      <p class="summonerName" id="{{.SummonerName}}">Summoner: {{.SummonerName}}</p>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Champions You Own</th>
-            <th>Average Ranked Win Rate from Champion.gg</th>
-            <th>Games Contributing to Average</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{ range .Matchups }}
-          <tr>
-            <th>
-              <img src="http://ddragon.leagueoflegends.com/cdn/6.7.1/img/champion/{{.Champion}}.png" height="40">
-              <a href="http://champion.gg/champion/{{.Champion}}/{{.Role}}" target="_blank" class="padding-left-10">
-              {{if eq .Champion "MonkeyKing" }} Wukong
-              {{else if eq .Champion "MasterYi"}} Master Yi
-              {{else if eq .Champion "DrMundo"}} Dr. Mundo
-              {{else if eq .Champion "Velkoz"}} Vel'Koz
-              {{else if eq .Champion "Leblanc"}} LeBlanc
-              {{else if eq .Champion "XinZhao"}} Xin Zhao
-              {{else if eq .Champion "Chogath"}} Cho'Gath
-              {{else if eq .Champion "TwistedFate"}} Twisted Fate
-              {{else if eq .Champion "MissFortune"}} Miss Fortune
-              {{else if eq .Champion "KogMaw"}} Kog'Maw
-              {{else if eq .Champion "TahmKench"}} Tahm Kench
-              {{else if eq .Champion "JarvanIV"}} Jarvan IV
-              {{else if eq .Champion "AurelionSol"}} Aurelion Sol
-              {{else if eq .Champion "LeeSin"}} Lee Sin
-              {{else}} {{.Champion}}
-              {{end}}
-              </a>
-            </th>
-            <th>{{.WinRate}}</th>
-            <th>{{.Games}}</th>
-          </tr>
-          {{ end }}
-        </tbody>
-      </table>
+    	<div class="col-md-offset-2 col-md-8 text-center enemy" id="enemy">
+	      <p><b>
+	        Enemy:</b>
+	        {{if eq .Enemy "MonkeyKing" }} Wukong
+	        {{else if eq .Enemy "MasterYi"}} Master Yi
+	        {{else if eq .Enemy "DrMundo"}} Dr. Mundo
+	        {{else if eq .Enemy "Velkoz"}} Vel'Koz
+	        {{else if eq .Enemy "Leblanc"}} LeBlanc
+	        {{else if eq .Enemy "XinZhao"}} Xin Zhao
+	        {{else if eq .Enemy "Chogath"}} Cho'Gath
+	        {{else if eq .Enemy "TwistedFate"}} Twisted Fate
+	        {{else if eq .Enemy "MissFortune"}} Miss Fortune
+	        {{else if eq .Enemy "KogMaw"}} Kog'Maw
+	        {{else if eq .Enemy "TahmKench"}} Tahm Kench
+	        {{else if eq .Enemy "JarvanIV"}} Jarvan IV
+	        {{else if eq .Enemy "AurelionSol"}} Aurelion Sol
+	        {{else if eq .Enemy "LeeSin"}} Lee Sin
+	        {{else}} {{.Enemy}} {{end}}
+	      </p>
+	      <img src="http://ddragon.leagueoflegends.com/cdn/6.7.1/img/champion/{{.Enemy}}.png" height="40">
+	      <p class="role" id="{{.Role}}"><b>Role:</b> {{.Role}}</p>
+	      <p class="summonerName" id="{{.SummonerName}}"><b>Summoner:</b> {{.SummonerName}}</p>
+	      <a type="button" class="btn btn-default goback" href="{{.Prefix}}">
+	        <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Choose Another Matchup
+	      </a>
+	  </div>
+
+	  <div class="col-md-offset-1 col-md-10">
+	      <table class="table championList" id="championList">
+	        <thead>
+	          <tr>
+	            <th>Champions You Own</th>
+	            <th>Average Ranked Win Rate from Champion.gg</th>
+	            <th>Games Contributing to Average</th>
+	          </tr>
+	        </thead>
+	        <tbody>
+	          {{ range .Matchups }}
+	          <tr>
+	            <th>
+	              <img src="http://ddragon.leagueoflegends.com/cdn/6.7.1/img/champion/{{.Champion}}.png" height="40">
+	              <a href="http://champion.gg/champion/{{.Champion}}/{{.Role}}" target="_blank" class="padding-left-10">
+	              {{if eq .Champion "MonkeyKing" }} Wukong
+	              {{else if eq .Champion "MasterYi"}} Master Yi
+	              {{else if eq .Champion "DrMundo"}} Dr. Mundo
+	              {{else if eq .Champion "Velkoz"}} Vel'Koz
+	              {{else if eq .Champion "Leblanc"}} LeBlanc
+	              {{else if eq .Champion "XinZhao"}} Xin Zhao
+	              {{else if eq .Champion "Chogath"}} Cho'Gath
+	              {{else if eq .Champion "TwistedFate"}} Twisted Fate
+	              {{else if eq .Champion "MissFortune"}} Miss Fortune
+	              {{else if eq .Champion "KogMaw"}} Kog'Maw
+	              {{else if eq .Champion "TahmKench"}} Tahm Kench
+	              {{else if eq .Champion "JarvanIV"}} Jarvan IV
+	              {{else if eq .Champion "AurelionSol"}} Aurelion Sol
+	              {{else if eq .Champion "LeeSin"}} Lee Sin
+	              {{else}} {{.Champion}}
+	              {{end}}
+	              </a>
+	            </th>
+	            <th>{{.WinRate}}</th>
+	            <th>{{.Games}}</th>
+	          </tr>
+	          {{ end }}
+	        </tbody>
+	      </table>
+	  </div>
 
       <div class="col-xs-12 text-center footer">
       <p>
@@ -93,6 +98,7 @@
     <script type="text/javascript" src="{{.Prefix}}static/js/fetch.min.js"></script>
     <script type="text/javascript">var urlPrefix = "{{.Prefix}}"</script>
     <script type="text/javascript" src="{{.Prefix}}static/js/index.js"></script>
+    <script type="text/javascript" src="{{.Prefix}}static/js/style.js"></script>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
