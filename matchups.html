@@ -54,9 +54,11 @@
 	      <table class="table championList" id="championList">
 	        <thead>
 	          <tr>
-	            <th>Champions You Own</th>
+	            <th>Champions You've Played</th>
 	            <th>Average Ranked Win Rate from Champion.gg</th>
 	            <th>Games Contributing to Average</th>
+              <th>Personal Win Rate</th>
+              <th>Personal Number of Games Played</th>
 	          </tr>
 	        </thead>
 	        <tbody>
@@ -85,6 +87,8 @@
 	            </th>
 	            <th>{{.WinRate}}</th>
 	            <th>{{.Games}}</th>
+              <th>{{.PersonalWinRate}}</th>
+              <th>{{.PersonalGames}}</th>
 	          </tr>
 	          {{ end }}
 	        </tbody>
