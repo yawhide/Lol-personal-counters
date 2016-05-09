@@ -204,7 +204,8 @@ func createSchema(db *pg.DB) error {
             season      text,
             summoner_id bigint,
             timestamp   bigint,
-            winner      boolean)`,
+            winner      boolean,
+            PRIMARY KEY (match_id, summoner_id))`,
 
         `CREATE TABLE IF NOT EXISTS my_summoners (
             name text,
@@ -386,9 +387,13 @@ func getOrCreateSummoner(region string, summonerName string, db *pg.DB) (summone
             return
         }
     }
+    fmt.Println("checking is masteries or personal matches need updating...")
     if summoner.MasteriesUpdatedAt.UTC().Add(time.Duration(60*60*24)*time.Second).Before(time.Now().UTC()) {
-        fmt.Printf("Summoner %s masteries are out of date...lets update them!\n", summoner.Name)
+        fmt.Printf("Summoner %s masteries may be out of date...lets update them!\n", summoner.Name)
         getChampionMasteriesBySummonerIdAndSave(region, summoner.SummonerId, db)
+    }
+    if summoner.MatchlistUpdatedAt.UTC().Add(time.Duration(60*60*24)*time.Second).Before(time.Now().UTC()) {
+        fmt.Printf("Summoner %s matchlist may be out of date...lets update them!\n", summoner.Name)
         getMatchlistBySummonerIdAndSave(region, summoner, db)
     }
 
@@ -449,65 +454,86 @@ func getMatchups(summoner_id uint64, enemy_champion_id string, role string, db *
 
 func getMatchlistBySummonerIdAndSave(region string, summoner MySummoner, db *pg.DB) (err error) {
     matchList, err := apiEndpointMap[region].GetMatchlist(summoner.SummonerId, summoner.StartIndex)
-    fmt.Println(matchList)
+    fmt.Println("matchlist length from api:", len(matchList.Matches))
     if err != nil {
         fmt.Println("Failed to get matchlist for summoner:", summoner.SummonerId, err)
         return
     }
-    // err = db.Model(&summoner).Update()
-    fmt.Println("before:", summoner)
-    summoner.UpdateStartIndex(matchList.EndIndex)
-    fmt.Println("after:", summoner)
-    _, err = db.Model(&summoner).Set("matchlist_updated_at = ?, start_index = ?", summoner.MatchlistUpdatedAt, summoner.StartIndex).Where("summoner_id = ?summoner_id").Update()
-    if err != nil {
-        fmt.Println("failed to update summoners matchlist start index:", summoner.SummonerId, err)
-        return
+    if matchList.EndIndex != summoner.StartIndex {
+        summoner.UpdateStartIndex(matchList.EndIndex)
+        _, err = db.Model(&summoner).Set("matchlist_updated_at = ?, start_index = ?", summoner.MatchlistUpdatedAt, summoner.StartIndex).Where("summoner_id = ?summoner_id").Update()
+        if err != nil {
+            fmt.Println("failed to update summoners matchlist start index:", summoner.SummonerId, err)
+            return
+        }
     }
-    // var pm []PersonalMatch
-    q := `INSERT INTO personal_matches VALUES`
-    for _, m := range matchList.Matches {
-        q += fmt.Sprintf(
-            " ('%v', '', '%v', %v, '%v', '%v', '%v', '%v', %v, %v, false),",
-        // pm = append(pm, PersonalMatch{
-            m.Champion,
-            // "",
-            m.Lane,
-            m.MatchId,
-            m.Role,
-            m.PlatformId,
-            m.Queue,
-            m.Season,
-            summoner.SummonerId,
-            m.Timestamp,
-            // false})
-            )
+    if len(matchList.Matches) > 0 {
+        q := `INSERT INTO personal_matches VALUES`
+        for _, m := range matchList.Matches {
+            q += fmt.Sprintf(
+                " ('%v', '', '%v', %v, '%v', '%v', '%v', '%v', %v, %v, false),",
+            // pm = append(pm, PersonalMatch{
+                m.Champion,
+                // "",
+                m.Lane,
+                m.MatchId,
+                m.Role,
+                m.PlatformId,
+                m.Queue,
+                m.Season,
+                summoner.SummonerId,
+                m.Timestamp,
+                // false})
+                )
+        }
+        q = strings.TrimSuffix(q, ",")
+        q += ` ON CONFLICT (match_id, summoner_id) DO NOTHING`
+        _, err = db.Exec(q)
+        if err != nil {
+            fmt.Println("failed to bulk insert match list for summoner:", summoner.SummonerId, err)
+            return
+        }
     }
-    q = strings.TrimSuffix(q, ",")
-    // err = db.Create(&pm)
-    fmt.Println("q:", q)
-    _, err = db.Exec(q)
-    if err != nil {
-        fmt.Println("failed to bulk insert match list for summoner:", summoner.SummonerId, err)
-        return
-    }
-    for _, m := range matchList.Matches {
-        game, err := apiEndpointMap[region].GetMatch(m.MatchId, false)
+//     type PersonalMatch struct {
+//     Champion   string
+//     Enemy      string
+//     Lane       string
+//     MatchId    uint64
+//     Role       string
+//     PlatformId string
+//     QueueType  string
+//     Season     string
+//     SummonerId uint64
+//     Timestamp  uint64
+//     Winner     bool
+// }
+    var winnerlessMatches []PersonalMatch
+    err = db.Model(&winnerlessMatches).Where("(enemy = '' or enemy = null) and summoner_id = ?", summoner.SummonerId).Select()
+    fmt.Println("Going to find enemies for:", len(winnerlessMatches), " personal matches for summoner:", summoner.SummonerId)
+    for _, w := range winnerlessMatches {
+        game, err := apiEndpointMap[region].GetMatch(w.MatchId, false)
         if err != nil {
             fmt.Println("Failed to get ranked game for summoner:", summoner.SummonerId, err)
         } else {
             var pm PersonalMatch
             enemy, winner := determineEnemyAndWinner(summoner.SummonerId, game)
             if enemy == "" {
-                fmt.Println("failed to determine enemy or winner for summoner:", summoner.SummonerId, "and match:", m.MatchId)
+                fmt.Println("failed to determine enemy or winner for summoner:", summoner.SummonerId, "and match:", w.MatchId)
                 continue
             }
             fmt.Println("enemy and winner:", enemy, winner)
             //TODO do a get, then an update to save writes if need be
-            _, err = db.Model(&pm).Set("enemy = ?, winner = ?", enemy, winner).Where("summoner_id = ? and match_id = ?", summoner.SummonerId, m.MatchId).Update()
+            _, err = db.Model(&pm).Set("enemy = ?, winner = ?", enemy, winner).Where("summoner_id = ? and match_id = ?", summoner.SummonerId, w.MatchId).Update()
             if err != nil {
-                fmt.Println("failed to update personal match with summoner:", summoner.SummonerId, "and match:", m.MatchId, err)
+                fmt.Println("failed to update personal match with summoner:", summoner.SummonerId, "and match:", w.MatchId, err)
             }
         }
+    }
+    var s MySummoner
+    _, err = db.Model(&s).Set("matchlist_updated_at = ?", time.Now().UTC()).Where("summoner_id = ?", summoner.SummonerId).Update()
+    if err != nil {
+        fmt.Println("Failed to update summoner:", summoner.SummonerId, "matchlist updated at time.", err)
+        return
     }
     return nil
 }
