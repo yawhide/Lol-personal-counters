@@ -20,11 +20,12 @@ type IndexResult struct {
 }
 
 type MatchupResults struct {
-    Enemy        string
-    Prefix       string
-    Role         string
-    SummonerName string
-    Matchups     []ChampionMatchup
+    Enemy         string
+    Prefix        string
+    Role          string
+    SummonerName  string
+    Matchups      []ChampionMatchup
+    ResultsLength int
 }
 
 func main() {
@@ -193,7 +194,7 @@ func GetMatchup(w http.ResponseWriter, r *http.Request) {
             }
         }
         // fmt.Println(CHAMPION_KEYS_BY_KEY_PROPER_CASING[CHAMPION_KEYS[enemy]], urlPrefix, role, summonerName, matchups)
-        result := MatchupResults{CHAMPION_KEYS_BY_KEY_PROPER_CASING[CHAMPION_KEYS[enemy]], urlPrefix, role, summonerName, matchups}
+        result := MatchupResults{CHAMPION_KEYS_BY_KEY_PROPER_CASING[CHAMPION_KEYS[enemy]], urlPrefix, role, summonerName, matchups, len(matchups)}
         t, _ := template.ParseFiles("matchups.html")
         t.Execute(w, result)
     } else {
