@@ -124,7 +124,10 @@
               <th>{{.WinRate}}</th>
               <th>{{.Games}}</th>
               <th>{{.PersonalWinRate}}</th>
-              <th>{{.PersonalGames}}</th>
+              <th>
+              {{if eq .PersonalGames 0}} </th>
+              {{else}} {{.PersonalGames}}</th>
+              {{end}}
             </tr>
             {{ end }}
           </tbody>

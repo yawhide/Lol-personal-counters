@@ -108,7 +108,7 @@ type ChampionMatchup struct {
     Role string `sql:",pk`
     StatScore float32
     WinRate float32
-    PersonalWinRate float32
+    PersonalWinRate string
     PersonalGames int
 }
 
@@ -121,7 +121,7 @@ func (m ChampionMatchup) String() string {
 }
 
 func (c *ChampionMatchup) UpdatePersonalData(p PersonalMatchup) {
-    c.PersonalWinRate = p.WinRate
+    c.PersonalWinRate = strings.TrimSuffix(fmt.Sprintf("%0.2f", p.WinRate), ".00")
     c.PersonalGames = p.Games
 }
 
