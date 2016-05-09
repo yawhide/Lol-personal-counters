@@ -2,6 +2,27 @@ window.onload = function() {
 	var bgC = new RGBA(255, 255, 255, 0);
 
 	var champList = document.getElementById("championList").getElementsByTagName("tr");
+	var found = document.getElementById("infoFoundDisplay");
+	var tableFound = document.getElementById("infoFoundDisplayTable");
+	var notFound = document.getElementById("infoNotFoundDisplay");
+	var enemy = document.getElementById("enemyName");
+	var lane = document.getElementById("role");
+
+	var sorryMsg = "Sorry not enough people play against <b>" + enemy.innerText + "</b> in the <b>" + lane.innerText + "</b> lane.";
+
+	if (champList.length == 1) {
+		found.classList.add("hidden");
+		tableFound.classList.add("hidden");
+		notFound.classList.remove("hidden");
+		enemy.innerHTML = sorryMsg;
+		lane.innerHTML = "";
+		enemy.style.marginBottom= "20px"
+	} else {
+		found.classList.remove("hidden");
+		tableFound.classList.remove("hidden");
+		notFound.classList.add("hidden");
+	}
+
 	for (var i = champList.length - 1; i > 0; i--) {
 		var percent = parseInt(champList[i].children[1].innerText);
 		setBG(champList[i], percent);
