@@ -242,5 +242,10 @@ h1{
 @media (max-width: 767px) {
 	.enemystats{
 		text-align: center;
+		padding-top: 0;
+	}
+
+	.enemyimg{
+		padding-bottom: 0;	
 	}
 }
