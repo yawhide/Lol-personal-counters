@@ -1,9 +1,15 @@
 # Lol-personal-counters
 Submission for the riot april 2016 api challenge
 
+## About
+This is our submission for the April 2016 api challenge! We wanted to make an app that would help the community out there no matter how good they are (non-ranked up to challenger). We love playing around counters during champion select and we thought making a tool that could help us determine the best champion to play in our arsenal would be amazing for us and the community. 
+Lol personal counters is a website that gets both popular win rates and your own personal win rates. It shows you in a very sexy manner which champions you should play given your enemy and lane. its simple to use and understand but provides huge insight! We like some other sites that tell us counter matchups, but no of them curate their lists strickly to the champions we actively play. If we don't own Kathus, I don't want to see how he is the BEST champion to play into Katarina midlane. But we do own Orianna so its only logical to show her instead.
+The biggest hurdles for this api challenge, from a technical standpoint, was to combine personal win rates of champion matchups (and getting enough data for it!) with third party website win rates. After creating the website, we were a little disappointed on the champion usage diversity (some champions were playing against a lot more then others). We decided to keep the personal win rates and the third party win rates separate because we couldnt think of a good mathematical squation to properly weight these two win rates. Going forward, we would definitely rate personal win rates higher then third party as the third party win rates are biased to platinum+ players (which MOST of the community isnt there yet).
+In conclusion, we would like to thank YOU riot for giving up the oppotunity to show off our skills and give back to the community we love. Thanks!
+
 ## Setting up the technology
 1. Install golang by following these steps exaclty on the [golang website](https://golang.org/doc/install)
-2. Ensure you have $GOPATH environment variable and that you can run `go` and `go get` from the command line.
+2. Ensure you have `$GOPATH` environment variable and that you can run `go` and `go get` from the command line.
 3. Run `mkdir -p $GOPATH/src/github.com/yawhide` to setup the workspace
 4. clone the git repo by running `git clone https://github.com/yawhide/Lol-personal-counters.git %GOPATH/src/github.com/yawhide/Lol-personal-counters` (must be inside the `%GOPATH/src/github.com/yawhide/Lol-personal-counters` directory) and ensure you are on the `Riot2016Submission` branch
 5. Install postgres 9.5
@@ -28,7 +34,7 @@ Submission for the riot april 2016 api challenge
     - if you see a bunch of urls hitting champion.gg, that is good. we are getting the latest win rates for the current patch. wait until its done (it should exit)
 13. now we are ready to go! run `cd ..` to go back to the root directory and run `go install .`
 14. now finally run `$GOPATH/bin/Lol-personal-counters` and navigate to `localhost:8080`. Please play around and enjoy the app!
-15. if you experience any issues, please email me at `ert.mcscrad@gmail.com` or write down an app note on my application. Thanks!
+15. if you experience any issues, please email me us at `ert.mcscrad@gmail.com` or write down an app note on my application. Thanks!
 
 ### BRZ command
 If you are getting an error talking about some `brz` command, try installing [bazaar](http://wiki.bazaar.canonical.com/Download) and adding it to your path
