@@ -3,7 +3,7 @@ package main
 import (
     "errors"
     "fmt"
-    "github.com/atuleu/go-lol"
+    "github.com/yawhide/go-lol"
     "github.com/spf13/viper"
     "gopkg.in/pg.v4"
     "strconv"
