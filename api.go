@@ -11,18 +11,6 @@ import (
     "time"
 )
 
-// var PLATFORM_IDS = map[string]string{
-//     "br": "BR1",
-//     "eune": "EUN1",
-//     "euw": "EUW1",
-//     "kr": "KR",
-//     "lan": "LA1",
-//     "las": "LA2",
-//     "na": "NA1",
-//     "oce": "OC1",
-//     "tr": "TR1",
-//     "ru": "RU",
-// }
 var RIOT_REGIONS = map[string]bool{
     "br": true,
     "eune": true,
@@ -35,7 +23,6 @@ var RIOT_REGIONS = map[string]bool{
     "tr": true,
     "ru": true,
 }
-const LOL_API_HOST_SUFFIX = "api.pvp.net"
 var CHAMPIONS = [...]string { "shaco","drmundo","rammus","anivia","irelia","yasuo","sona","kassadin","zac","gnar","karma","corki","gangplank","janna","jhin","kindred","braum","ashe","tryndamere","jax","morgana","zilean","singed","evelynn","twitch","galio","velkoz","olaf","annie","karthus","leblanc","urgot","amumu","xinzhao","chogath","twistedfate","fiddlesticks","vladimir","warwick","teemo","tristana","sivir","soraka","ryze","sion","masteryi","alistar","missfortune","nunu","rengar","volibear","fizz","graves","ahri","shyvana","lux","xerath","thresh","shen","kogmaw","jinx","tahmkench","riven","talon","malzahar","kayle","kalista","reksai","illaoi","leona","lulu","gragas","poppy","fiora","ziggs","udyr","viktor","sejuani","varus","nautilus","draven","bard","mordekaiser","ekko","yorick","pantheon","ezreal","garen","akali","kennen","vayne","jayce","lissandra","cassiopeia","rumble","khazix","darius","hecarim","skarner","lucian","heimerdinger","nasus","zed","nidalee","syndra","jarvaniv","quinn","renekton","maokai","aurelionsol","nocturne","katarina","leesin","monkeyking","azir","brand","diana","elise","nami","aatrox","orianna","zyra","trundle","veigar","taric","caitlyn","blitzcrank","malphite","vi","swain" }
 var CHAMPION_KEYS = map[string]string{ "aatrox":"266","ahri":"103","akali":"84","alistar":"12","amumu":"32","anivia":"34","annie":"1","ashe":"22","aurelionsol":"136","azir":"268","bard":"432","blitzcrank":"53","brand":"63","braum":"201","caitlyn":"51","cassiopeia":"69","chogath":"31","corki":"42","darius":"122","diana":"131","draven":"119","drmundo":"36","ekko":"245","elise":"60","evelynn":"28","ezreal":"81","fiddlesticks":"9","fiora":"114","fizz":"105","galio":"3","gangplank":"41","garen":"86","gnar":"150","gragas":"79","graves":"104","hecarim":"120","heimerdinger":"74","illaoi":"420","irelia":"39","janna":"40","jarvaniv":"59","jax":"24","jayce":"126","jhin":"202","jinx":"222","kalista":"429","karma":"43","karthus":"30","kassadin":"38","katarina":"55","kayle":"10","kennen":"85","khazix":"121","kindred":"203","kogmaw":"96","leblanc":"7","leesin":"64","leona":"89","lissandra":"127","lucian":"236","lulu":"117","lux":"99","malphite":"54","malzahar":"90","maokai":"57","masteryi":"11","missfortune":"21","monkeyking":"62","wukong":"62","mordekaiser":"82","morgana":"25","nami":"267","nasus":"75","nautilus":"111","nidalee":"76","nocturne":"56","nunu":"20","olaf":"2","orianna":"61","pantheon":"80","poppy":"78","quinn":"133","rammus":"33","reksai":"421","renekton":"58","rengar":"107","riven":"92","rumble":"68","ryze":"13","sejuani":"113","shaco":"35","shen":"98","shyvana":"102","singed":"27","sion":"14","sivir":"15","skarner":"72","sona":"37","soraka":"16","swain":"50","syndra":"134","tahmkench":"223","talon":"91","taric":"44","teemo":"17","thresh":"412","tristana":"18","trundle":"48","tryndamere":"23","twistedfate":"4","twitch":"29","udyr":"77","urgot":"6","varus":"110","vayne":"67","veigar":"45","velkoz":"161","vi":"254","viktor":"112","vladimir":"8","volibear":"106","warwick":"19","xerath":"101","xinzhao":"5","yasuo":"157","yorick":"83","zac":"154","zed":"238","ziggs":"115","zilean":"26","zyra":"143"}
 var CHAMPION_KEYS_BY_KEY = map[string]string{ "1":"annie", "2":"olaf", "3":"galio", "4":"twistedfate", "5":"xinzhao", "6":"urgot", "7":"leblanc", "8":"vladimir", "9":"fiddlesticks", "10":"kayle", "11":"masteryi", "12":"alistar", "13":"ryze", "14":"sion", "15":"sivir", "16":"soraka", "17":"teemo", "18":"tristana", "19":"warwick", "20":"nunu", "21":"missfortune", "22":"ashe", "23":"tryndamere", "24":"jax", "25":"morgana", "26":"zilean", "27":"singed", "28":"evelynn", "29":"twitch", "30":"karthus", "31":"chogath", "32":"amumu", "33":"rammus", "34":"anivia", "35":"shaco", "36":"drmundo", "37":"sona", "38":"kassadin", "39":"irelia", "40":"janna", "41":"gangplank", "42":"corki", "43":"karma", "44":"taric", "45":"veigar", "48":"trundle", "50":"swain", "51":"caitlyn", "53":"blitzcrank", "54":"malphite", "55":"katarina", "56":"nocturne", "57":"maokai", "58":"renekton", "59":"jarvaniv", "60":"elise", "61":"orianna", "62":"monkeyking", "63":"brand", "64":"leesin", "67":"vayne", "68":"rumble", "69":"cassiopeia", "72":"skarner", "74":"heimerdinger", "75":"nasus", "76":"nidalee", "77":"udyr", "78":"poppy", "79":"gragas", "80":"pantheon", "81":"ezreal", "82":"mordekaiser", "83":"yorick", "84":"akali", "85":"kennen", "86":"garen", "89":"leona", "90":"malzahar", "91":"talon", "92":"riven", "96":"kogmaw", "98":"shen", "99":"lux", "101":"xerath", "102":"shyvana", "103":"ahri", "104":"graves", "105":"fizz", "106":"volibear", "107":"rengar", "110":"varus", "111":"nautilus", "112":"viktor", "113":"sejuani", "114":"fiora", "115":"ziggs", "117":"lulu", "119":"draven", "120":"hecarim", "121":"khazix", "122":"darius", "126":"jayce", "127":"lissandra", "131":"diana", "133":"quinn", "134":"syndra", "136":"aurelionsol", "143":"zyra", "150":"gnar", "154":"zac", "157":"yasuo", "161":"velkoz", "201":"braum", "202":"jhin", "203":"kindred", "222":"jinx", "223":"tahmkench", "236":"lucian", "238":"zed", "245":"ekko", "254":"vi", "266":"aatrox", "267":"nami", "268":"azir", "412":"thresh", "420":"illaoi", "421":"reksai", "429":"kalista", "432":"bard"}
@@ -283,27 +270,7 @@ func getSummonerIdByNameAndSave(region string, names []string, db *pg.DB) (playe
     return
 }
 
-// func getAllChampions(region string) (champions, err error) {
-//     /api/lol/static-data/{region}/v1.2/champion
-// }
-
 func getChampionMasteriesBySummonerIdAndSave(region string, summonerId uint64, db *pg.DB) (masteries []lol.ChampionMastery, err error) {
-    // args := "api_key=" + viper.GetString("riot.key")
-    // platformId := PLATFORM_IDS[region]
-    // // var masteries []Mastery
-    // url := fmt.Sprintf(
-    //         "https://%v.%v/championmastery/location/%v/player/%v/champions?%v",
-    //         region,
-    //         LOL_API_HOST_SUFFIX,
-    //         platformId,
-    //         summonerId,
-    //         args)
-    // fmt.Println(url)
-    // err = requestAndUnmarshal(url, &masteries)
-    // if err != nil {
-    //     fmt.Println(err)
-    //     return
-    // }
     masteries, err = apiEndpointMap[region].GetChampionMasteries(lol.SummonerID(summonerId))
     if err != nil {
         fmt.Println("Failed to get champion masteries for summoner:", summonerId, err)
@@ -321,37 +288,11 @@ func getChampionMasteriesBySummonerIdAndSave(region string, summonerId uint64, d
             mastery.LastPlayTime,
             mastery.Player)
         _, err = db.Exec(sql)
-        // err = db.Create(&mastery)
         if err != nil {
-            // fmt.Println(sql)
             fmt.Println("Failed to upsert masteries for summoner:", summonerId, err)
             return
         }
     }
-    // var s Summoner
-    // err = db.Model(&s).Where("summoner_id = ?", summonerId).Select()
-    // s.MasteriesUpdatedAt = time.Now().UTC()
-    // fmt.Println(s)
-    // db.Model(&s).Set("masteries_updated_at = ?masteries_updated_at").Where("summoner_id = ?summoner_id").Update()
-
-    // err = db.Update(&s)
-    // if err != nil {
-    //     fmt.Println("failed to upsert new masteries for summoner:", summonerId, err)
-    // }
-
-    // _, err = db.Model(&s).Set("masteries_updated_at = ?", time.Now().UTC()).Returning("*").Update()
-    // fmt.Println("wtf", db.Model(&s))
-
-    // sql = fmt.Sprintf(
-    //     "UPDATE summoners SET masteries_updated_at = '%v' WHERE summoner_id = '%v'",
-    //     summonerId,
-    //     time.Now().UTC())
-    // fmt.Println(sql)
-    // _, err = db.Exec(sql)
-    // err = db.Update(&Summoner{
-    //     SummonerId: summonerId,
-    //     MasteriesUpdatedAt: time.Now().UTC(),
-    // })
     var s MySummoner
     _, err = db.Model(&s).Set("masteries_updated_at = ?", time.Now().UTC()).Where("summoner_id = ?", summonerId).Update()
 
@@ -420,12 +361,9 @@ func getMatchups(summoner_id uint64, enemy_champion_id string, role string, db *
             roleToSqlMapping[role],
             enemy_champion_id,
             roleToSqlMapping[role])
-    // fmt.Println(sql)
 
     var pm []PersonalMatchup
     _, err = db.Query(&pm, sql)
-    // return users, err
-    // res, err := db.Exec(sql, pm)
     if err != nil {
         fmt.Println("Failed to get personal winrates for summoner:", summoner_id)
         return
@@ -435,13 +373,11 @@ func getMatchups(summoner_id uint64, enemy_champion_id string, role string, db *
         if !p.Winner {
             for _, p2 := range pm {
                 if (p.Champion == p2.Champion && p.Winner != p2.Winner) {
-                    // fmt.Println(p.Champion, p2.Champion, p.Winner, p2.Winner)
                     found = true
                     break
                 }
             }
         }
-        // fmt.Println(found, p)
         if !found {
             finalPm = append(finalPm, p)
         }
@@ -494,19 +430,7 @@ func getMatchlistBySummonerIdAndSave(region string, summoner MySummoner, db *pg.
             return
         }
     }
-//     type PersonalMatch struct {
-//     Champion   string
-//     Enemy      string
-//     Lane       string
-//     MatchId    uint64
-//     Role       string
-//     PlatformId string
-//     QueueType  string
-//     Season     string
-//     SummonerId uint64
-//     Timestamp  uint64
-//     Winner     bool
-// }
+
     var winnerlessMatches []PersonalMatch
     err = db.Model(&winnerlessMatches).Where("(enemy = '' or enemy = null) and summoner_id = ?", summoner.SummonerId).Select()
     fmt.Println("Going to find enemies for:", len(winnerlessMatches), " personal matches for summoner:", summoner.SummonerId)
@@ -522,7 +446,6 @@ func getMatchlistBySummonerIdAndSave(region string, summoner MySummoner, db *pg.
                 continue
             }
             fmt.Println("enemy and winner:", enemy, winner)
-            //TODO do a get, then an update to save writes if need be
             _, err = db.Model(&pm).Set("enemy = ?, winner = ?", enemy, winner).Where("summoner_id = ? and match_id = ?", summoner.SummonerId, w.MatchId).Update()
             if err != nil {
                 fmt.Println("failed to update personal match with summoner:", summoner.SummonerId, "and match:", w.MatchId, err)
@@ -553,8 +476,6 @@ func createSummonerIDString(summonerID []int64) (summonerIDstr string, err error
     return
 }
 
-//NormalizeSummonerName takes an arbitrary number of strings and returns a string array containing the strings
-//standardized to league of legends internal standard (lowecase and strings removed)
 func NormalizeSummonerName(summonerNames ...string) []string {
     for i, v := range summonerNames {
         summonerName := strings.ToLower(v)
@@ -573,26 +494,6 @@ func NormalizeChampion(name string) string {
 }
 
 func determineEnemyAndWinner(summonerId uint64, game *lol.Match) (enemy string, winner bool) {
-    // type Match struct {
-    //     Participants []struct {
-    //         Stat struct {
-    //             Winner bool `json:"winner"`
-    //         }   `json:"stats"`
-    //         Timeline struct {
-    //             Role string `json:"role"`
-    //             Lane string `json:"lane"`
-    //         }   `json:"timeline"`
-    //         ParticipantId int `json:"participantId"`
-    //         ChampionId    int `json:"championId"`
-    //         TeamId        int `json:"teamId"`
-    //     }   `json:"participants"`
-    //     ParticipantIdentities []struct {
-    //         Player struct {
-    //             SummonerId uint64 `json:"summonerId"`
-    //         }
-    //         ParticipantId int `json:"participantId"`
-    //     }   `json:"participantIdentities"`
-    // }
     var participantId int
     for _, p := range game.ParticipantIdentities {
         if p.Player.SummonerId == summonerId {

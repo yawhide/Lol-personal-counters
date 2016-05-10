@@ -97,33 +97,33 @@
 		},
 		{
 			"ImportPath": "gopkg.in/pg.v4",
-			"Comment": "v4.1.4",
-			"Rev": "3661d8a1a1f4b73557da7867669702ab67b85d65"
+			"Comment": "v4.1.7",
+			"Rev": "04be1ebd72be3f0bd0d47e48f7550a167fd7e1ec"
 		},
 		{
 			"ImportPath": "gopkg.in/pg.v4/internal",
-			"Comment": "v4.1.4",
-			"Rev": "3661d8a1a1f4b73557da7867669702ab67b85d65"
+			"Comment": "v4.1.7",
+			"Rev": "04be1ebd72be3f0bd0d47e48f7550a167fd7e1ec"
 		},
 		{
 			"ImportPath": "gopkg.in/pg.v4/internal/parser",
-			"Comment": "v4.1.4",
-			"Rev": "3661d8a1a1f4b73557da7867669702ab67b85d65"
+			"Comment": "v4.1.7",
+			"Rev": "04be1ebd72be3f0bd0d47e48f7550a167fd7e1ec"
 		},
 		{
 			"ImportPath": "gopkg.in/pg.v4/internal/pool",
-			"Comment": "v4.1.4",
-			"Rev": "3661d8a1a1f4b73557da7867669702ab67b85d65"
+			"Comment": "v4.1.7",
+			"Rev": "04be1ebd72be3f0bd0d47e48f7550a167fd7e1ec"
 		},
 		{
 			"ImportPath": "gopkg.in/pg.v4/orm",
-			"Comment": "v4.1.4",
-			"Rev": "3661d8a1a1f4b73557da7867669702ab67b85d65"
+			"Comment": "v4.1.7",
+			"Rev": "04be1ebd72be3f0bd0d47e48f7550a167fd7e1ec"
 		},
 		{
 			"ImportPath": "gopkg.in/pg.v4/types",
-			"Comment": "v4.1.4",
-			"Rev": "3661d8a1a1f4b73557da7867669702ab67b85d65"
+			"Comment": "v4.1.7",
+			"Rev": "04be1ebd72be3f0bd0d47e48f7550a167fd7e1ec"
 		},
 		{
 			"ImportPath": "gopkg.in/yaml.v2",
