@@ -21,7 +21,7 @@ In conclusion, we would like to thank Riot for giving us the opportunity to show
 4. Clone the git repo by running `git clone https://github.com/yawhide/Lol-personal-counters.git %GOPATH/src/github.com/yawhide/Lol-personal-counters` (must be inside the `%GOPATH/src/github.com/yawhide/Lol-personal-counters` directory) and ensure you are on the `Riot2016Submission` branch
 5. Install postgres 9.5
     - Please leave the port on 5432
-    - On windows you can go easy mode by downloading this [installer](http://www.enterprisedb.com/products-services-training/pgdownload#windows), ensure you choose v9.5
+    - On windows you can download this [installer](http://www.enterprisedb.com/products-services-training/pgdownload#windows), ensure you choose v9.5
     - On ubuntu, you can follow this guide to setup postgres9.5: [guide](https://www.howtoforge.com/tutorial/how-to-install-postgresql-95-on-ubuntu-12_04-15_10/)
     - On mac, you can download [Postgres.app](http://postgresapp.com/)
     - Ensure postgres is running
