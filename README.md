@@ -10,3 +10,6 @@ Submission for the riot april 2016 api challenge
 
 ### start postgres on windows
 "pg_ctl" -D datafolderpath -l logfile start
+
+### access postgres
+`sudo -i -u postgres`
