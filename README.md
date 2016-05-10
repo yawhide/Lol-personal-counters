@@ -9,7 +9,7 @@ Submission for the riot april 2016 api challenge
     - Please leave the port on 5432
     - On windows you can go easy mode by downloading this [installer](http://www.enterprisedb.com/products-services-training/pgdownload#windows), ensure you choose v9.5
     - On ubuntu, you can follow this guide to setup postgres9.5: [guide](https://www.howtoforge.com/tutorial/how-to-install-postgresql-95-on-ubuntu-12_04-15_10/)
-    - On mac, you can download (Postgres.app)[http://postgresapp.com/]
+    - On mac, you can download [Postgres.app](http://postgresapp.com/)
     - Ensure postgres is running
     - run `psql` on the command line and it should start the command line version of postgres
     - run `\du` and find out which role has superuser
@@ -17,7 +17,7 @@ Submission for the riot april 2016 api challenge
     - add the superuser username/password into the config.json under the `postgres` key
     - mind as well add the riot api key and the champion.gg api key (the champion.gg api key will be provided in the notes on the application)
 5. run `go install .` from the github root folder
-6. if all goes well, the application starts with no errors, you should see `Server started` and you can navigate to (localhost)[localhost:8080]
+6. if all goes well, the application starts with no errors, you should see `Server started` and you can navigate to `localhost:8080`
 
 ### Frameworks used
 - https://github.com/codegangsta/gin
