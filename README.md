@@ -38,7 +38,7 @@ In conclusion, we would like to thank Riot for giving us the opportunity to show
 10. If all goes well, the application starts with no errors, you should see `Server started` and you can navigate to `localhost:8080`
 11. Hit `ctrl-c` or `cmd-c` to stop the server
 12. Navigate to `scripts/` inside the github folder and run `go run data.go api.go analytics.go`
-    - if you see a bunch of urls hitting champion.gg, that is good. we are getting the latest win rates for the current patch. wait until its done (it should exit)
+    - If you see a bunch of urls hitting champion.gg, that is good. We are getting the latest win rates for the current patch. wait until its done (it should exit)
 13. Now we are ready to go! run `cd ..` to go back to the root directory and run `go install .`
 14. Now finally run `$GOPATH/bin/Lol-personal-counters` and navigate to `localhost:8080`. Please play around and enjoy the app!
 15. If you experience any issues, please email me us at `ert.mcscrad@gmail.com` or write down an app note on my application. Thanks!
