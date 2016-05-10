@@ -34,15 +34,15 @@ Submission for the riot april 2016 api challenge
 If you are getting an error talking about some `brz` command, try installing [bazaar](http://wiki.bazaar.canonical.com/Download) and adding it to your path
 
 ### Frameworks used
-- https://github.com/codegangsta/gin
-- https://github.com/spf13/viper
-- https://gopkg.in/pg.v4
-- https://github.com/tools/godep
-- https://github.com/yawhide/go-lol
+You may need to manually `go get` these to make the app work, please run `go get` then enter the github link below
+- github.com/tools/godep
+- github.com/spf13/viper
+- gopkg.in/pg.v4
+- github.com/yawhide/go-lol
 
 
 ### start postgres on windows
 `"pg_ctl" -D datafolderpath -l log\logfile start`
 
-### access postgres
+### access postgres on ubuntu
 `sudo -i -u postgres`
