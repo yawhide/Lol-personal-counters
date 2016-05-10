@@ -3,8 +3,8 @@ Submission for the riot april 2016 api challenge
 
 ## Setting up the technology
 1. Install golang by following these steps exaclty on the [golang website](https://golang.org/doc/install)
-2. Ensure you have $GOPATH environment variable and that you can run `go` from the command line
-3. clone the git repo `https://github.com/yawhide/Lol-personal-counters.git` and ensure you are on the `master` branch
+2. Ensure you have $GOPATH environment variable and that you can run `go` and `go get` from the command line
+3. clone the git repo by running `git clone https://github.com/yawhide/Lol-personal-counters.git %GOPATH/src/github.com/yawhide/Lol-personal-counters` (must be inside the `%GOPATH/src/github.com/yawhide/Lol-personal-counters` directory) and ensure you are on the `Riot2016Submission` branch
 4. Install postgres 9.5
     - Please leave the port on 5432
     - On windows you can go easy mode by downloading this [installer](http://www.enterprisedb.com/products-services-training/pgdownload#windows), ensure you choose v9.5
@@ -16,8 +16,10 @@ Submission for the riot april 2016 api challenge
     - copy the config.json.sample to config.json and edit the file
     - add the superuser username/password into the config.json under the `postgres` key
     - mind as well add the riot api key and the champion.gg api key (the champion.gg api key will be provided in the notes on the application)
-5. run `go install .` from the github root folder
-6. if all goes well, the application starts with no errors, you should see `Server started` and you can navigate to `localhost:8080`
+5. cd to `%GOPATH/src/github.com/yawhide/Lol-personal-counters` and run `go get github.com/tools/godep`
+6. run `$GOPATH\bin\godep restore`
+7. run `go install .` from the github root folder
+8. if all goes well, the application starts with no errors, you should see `Server started` and you can navigate to `localhost:8080`
 
 ### Frameworks used
 - https://github.com/codegangsta/gin
