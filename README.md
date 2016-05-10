@@ -28,7 +28,7 @@ In conclusion, we would like to thank Riot for giving us the opportunity to show
     - Run `psql` on the command line and it should start the command line version of postgres
     - Run `\du` and find out which role has superuser
     - Copy the config.json.sample to config.json and edit the file
-    - Add the superuser username/password into the config.json under the `postgres` key
+    - Add the postgres `superuser` username/password into the config.json under the `postgres` key
     - Add the riot api key and the champion.gg api key (the champion.gg api key will be provided in the notes on the application)
 6. cd to `%GOPATH/src/github.com/yawhide/Lol-personal-counters` and run `go get github.com/tools/godep`
 7. Run `$GOPATH\bin\godep restore`
