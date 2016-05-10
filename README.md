@@ -18,8 +18,16 @@ Submission for the riot april 2016 api challenge
     - mind as well add the riot api key and the champion.gg api key (the champion.gg api key will be provided in the notes on the application)
 5. cd to `%GOPATH/src/github.com/yawhide/Lol-personal-counters` and run `go get github.com/tools/godep`
 6. run `$GOPATH\bin\godep restore`
-7. run `go install .` from the github root folder
-8. if all goes well, the application starts with no errors, you should see `Server started` and you can navigate to `localhost:8080`
+7. If you get an error talking about "error downloading dep (launchpad.net/go-xdg): exec "brz" blah blah blah 
+    - run `go get -u -insecure github.com/yawhide/go-lol`
+8. run `go run main.go api.go analytics.go` from the github root folder
+9. if all goes well, the application starts with no errors, you should see `Server started` and you can navigate to `localhost:8080`
+10. hit `ctrl-c` or `cmd-c` to stop the server
+11. navigate to `scripts/` inside the github folder and run `go run data.go api.go analytics.go`
+    - if you see a bunch of urls hitting champion.gg, that is good. we are getting the latest win rates for the current patch. wait until its done (it should exit)
+12. now we are ready to go! run `cd ..` to go back to the root directory and run `go install .`
+13. now finally run `$GOPATH/bin/Lol-personal-counters` and navigate to `localhost:8080`. Please play around and enjoy the app!
+14. if you experience any issues, please email me at `ert.mcscrad@gmail.com` or write down an app note on my application. Thanks!
 
 ### Frameworks used
 - https://github.com/codegangsta/gin
