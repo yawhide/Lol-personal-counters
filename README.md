@@ -1,5 +1,5 @@
 # Lol-personal-counters
-Submission for the riot april 2016 api challenge
+Submission for the Riot April 2016 api challenge
 
 ## About
 This is our submission for the April 2016 api challenge! We wanted to make an app that would help the community out there no matter how good they are (non-ranked up to challenger). We love playing around counters during champion select and we thought making a tool that could help us determine the best champion to play in our arsenal would be amazing for us and the community. 
@@ -9,6 +9,10 @@ Lol personal counters is a website that gets both popular win rates and your own
 The biggest hurdles for this api challenge, from a technical standpoint, was to combine personal win rates of champion matchups (and getting enough data for it!) with third party website win rates. After creating the website, we were a little disappointed on the champion usage diversity (some champions were playing against a lot more then others). We decided to keep the personal win rates and the third party win rates separate because we couldnt think of a good mathematical squation to properly weight these two win rates. Going forward, we would definitely rate personal win rates higher then third party as the third party win rates are biased to platinum+ players (which MOST of the community isnt there yet).
 
 In conclusion, we would like to thank YOU riot for giving up the oppotunity to show off our skills and give back to the community we love. Thanks!
+
+## Set backs
+- Proper loading page when users first check a matchup. Please be patient!! We are getting your rank stats!
+- Proper algorithm to combine personal win rates and third party win rates
 
 ## Setting up the technology
 1. Install golang by following these steps exaclty on the [golang website](https://golang.org/doc/install)
