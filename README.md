@@ -11,7 +11,7 @@ The biggest hurdles for this api challenge, from a technical standpoint, was to 
 In conclusion, we would like to thank YOU riot for giving up the oppotunity to show off our skills and give back to the community we love. Thanks!
 
 ## Set backs
-- Proper loading page when users first check a matchup. Please be patient!! We are getting your rank stats!
+- Proper loading page when users first check a matchup. Please be patient!! We are getting your rank stats! (little hack is to just refresh the page after a few second and the win rates will be determined in the background)
 - Proper algorithm to combine personal win rates and third party win rates
 
 ## Setting up the technology
