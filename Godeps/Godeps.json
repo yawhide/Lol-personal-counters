@@ -72,6 +72,10 @@
 			"Rev": "d2dd0262208475919e1a362f675cfc0e7c10e905"
 		},
 		{
+			"ImportPath": "github.com/nightlyone/lockfile",
+			"Rev": "b30dcbfa86e3a1eaa4e6622de2ce57be2c138c10"
+		},
+		{
 			"ImportPath": "github.com/spf13/cast",
 			"Rev": "27b586b42e29bec072fe7379259cc719e1289da6"
 		},
@@ -88,6 +92,10 @@
 			"Rev": "f904a1790545169368e8d37badd19d1895d94f29"
 		},
 		{
+			"ImportPath": "github.com/yawhide/go-lol",
+			"Rev": "81c773be7b88387c682e12fb7c922ebeb8be8c46"
+		},
+		{
 			"ImportPath": "golang.org/x/sys/unix",
 			"Rev": "c8bc69bc2db9c57ccf979550bc69655df5039a8a"
 		},
@@ -97,37 +105,42 @@
 		},
 		{
 			"ImportPath": "gopkg.in/pg.v4",
-			"Comment": "v4.0.8",
-			"Rev": "fbcd2023a927b2a0540d417ccfd4841608014ef7"
+			"Comment": "v4.1.7",
+			"Rev": "04be1ebd72be3f0bd0d47e48f7550a167fd7e1ec"
 		},
 		{
 			"ImportPath": "gopkg.in/pg.v4/internal",
-			"Comment": "v4.0.8",
-			"Rev": "fbcd2023a927b2a0540d417ccfd4841608014ef7"
+			"Comment": "v4.1.7",
+			"Rev": "04be1ebd72be3f0bd0d47e48f7550a167fd7e1ec"
 		},
 		{
 			"ImportPath": "gopkg.in/pg.v4/internal/parser",
-			"Comment": "v4.0.8",
-			"Rev": "fbcd2023a927b2a0540d417ccfd4841608014ef7"
+			"Comment": "v4.1.7",
+			"Rev": "04be1ebd72be3f0bd0d47e48f7550a167fd7e1ec"
 		},
 		{
 			"ImportPath": "gopkg.in/pg.v4/internal/pool",
-			"Comment": "v4.0.8",
-			"Rev": "fbcd2023a927b2a0540d417ccfd4841608014ef7"
+			"Comment": "v4.1.7",
+			"Rev": "04be1ebd72be3f0bd0d47e48f7550a167fd7e1ec"
 		},
 		{
 			"ImportPath": "gopkg.in/pg.v4/orm",
-			"Comment": "v4.0.8",
-			"Rev": "fbcd2023a927b2a0540d417ccfd4841608014ef7"
+			"Comment": "v4.1.7",
+			"Rev": "04be1ebd72be3f0bd0d47e48f7550a167fd7e1ec"
 		},
 		{
 			"ImportPath": "gopkg.in/pg.v4/types",
-			"Comment": "v4.0.8",
-			"Rev": "fbcd2023a927b2a0540d417ccfd4841608014ef7"
+			"Comment": "v4.1.7",
+			"Rev": "04be1ebd72be3f0bd0d47e48f7550a167fd7e1ec"
 		},
 		{
 			"ImportPath": "gopkg.in/yaml.v2",
 			"Rev": "a83829b6f1293c91addabc89d0571c246397bbf4"
+		},
+		{
+			"ImportPath": "launchpad.net/go-xdg",
+			"Comment": "10",
+			"Rev": "john.lenton@canonical.com-20140208094800-gubd5md7cro3mtxa"
 		}
 	]
 }

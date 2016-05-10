@@ -1,0 +1,13 @@
+{
+  "championgg": {
+    "key": "**enter champion gg key here**"
+  },
+  "postgres": {
+    "username": "**enter postgres username here**",
+    "password": "**enter password if you have one, if not, delete this key value pair"
+  },
+  "riot": {
+    "key": "**enter riot key here**"
+  },
+  "urlPrefix": "/"
+}

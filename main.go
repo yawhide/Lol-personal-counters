@@ -20,11 +20,12 @@ type IndexResult struct {
 }
 
 type MatchupResults struct {
-    Enemy        string
-    Prefix       string
-    Role         string
-    SummonerName string
-    Matchups     []ChampionMatchup
+    Enemy         string
+    Prefix        string
+    Role          string
+    SummonerName  string
+    Matchups      []ChampionMatchup
+    ResultsLength int
 }
 
 func main() {
@@ -179,17 +180,21 @@ func GetMatchup(w http.ResponseWriter, r *http.Request) {
             t.Execute(w, result)
             return
         }
-        var matchups []ChampionMatchup
-        matchups, err = getMatchups(summoner.SummonerId, CHAMPION_KEYS[enemy], role, db)
+        matchups, pm, err := getMatchups(summoner.SummonerId, CHAMPION_KEYS[enemy], role, db)
         if err != nil {
             http.Error(w, err.Error(), http.StatusInternalServerError)
             return
         }
         for index, matchup := range matchups {
             matchups[index].SetChampion(CHAMPION_KEYS_BY_KEY_PROPER_CASING[matchup.Champion])
+            for _, p := range pm {
+                if p.Champion == matchup.Champion {
+                    matchups[index].UpdatePersonalData(p)
+                }
+            }
         }
         // fmt.Println(CHAMPION_KEYS_BY_KEY_PROPER_CASING[CHAMPION_KEYS[enemy]], urlPrefix, role, summonerName, matchups)
-        result := MatchupResults{CHAMPION_KEYS_BY_KEY_PROPER_CASING[CHAMPION_KEYS[enemy]], urlPrefix, role, summonerName, matchups}
+        result := MatchupResults{CHAMPION_KEYS_BY_KEY_PROPER_CASING[CHAMPION_KEYS[enemy]], urlPrefix, role, summonerName, matchups, len(matchups)}
         t, _ := template.ParseFiles("matchups.html")
         t.Execute(w, result)
     } else {

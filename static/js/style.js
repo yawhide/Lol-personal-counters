@@ -2,6 +2,7 @@ window.onload = function() {
 	var bgC = new RGBA(255, 255, 255, 0);
 
 	var champList = document.getElementById("championList").getElementsByTagName("tr");
+
 	for (var i = champList.length - 1; i > 0; i--) {
 		var percent = parseInt(champList[i].children[1].innerText);
 		setBG(champList[i], percent);
